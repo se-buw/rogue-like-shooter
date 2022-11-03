@@ -3,42 +3,27 @@
  */
 package de.buw.se4de;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
+import java.awt.*;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
+import javax.swing.*;
 
 public class App {
-	public String getGreeting() {
-		String result = "";
-		try (Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/book.csv"));
-				@SuppressWarnings("deprecation")
-				CSVParser csvParser = new CSVParser(reader,
-						CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
-			for (CSVRecord csvRecord : csvParser) {
-				String name = csvRecord.get("author");
-				result += "Hello " + name + "!\n";
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public String displayWindow() {
+		JButton b=new JButton("Click Here");
+		b.setBounds(50,100,95,30);
 
-		System.out.println("Enter your name:");
-		Scanner scanner = new Scanner(System.in);
-		String inputString = scanner.nextLine();
-		System.out.println("Hello " + inputString + "!");
-		scanner.close();
+		JFrame frame = new JFrame("FrameDemo");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(b, BorderLayout.CENTER);
+		frame.pack();
+		frame.setSize(400,400);
+		frame.setLayout(null);
+		frame.setVisible(true);
 
-		return result;
+		return null;
 	}
 
 	public static void main(String[] args) {
-		System.out.println(new App().getGreeting());
+		System.out.println(new App().displayWindow());
 	}
 }
