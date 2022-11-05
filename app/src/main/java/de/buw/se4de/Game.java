@@ -12,8 +12,11 @@ public class Game extends Canvas implements Runnable {
     public Game(){
         new Window(600,600,"Firefighter", this);
         start();
-
         objects = new ObjectManagement();
+        this.addKeyListener(new KeyInput(objects));
+
+        //test Player Object
+        objects.addObject(new Player(50,50, ID.Player, objects));
     }
 
     private void start(){

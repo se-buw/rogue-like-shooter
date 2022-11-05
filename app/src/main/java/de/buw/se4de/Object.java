@@ -56,7 +56,5 @@ public abstract class Object {
         this.id = id;
     }
 
-
-    static void move(){}
-    static void shoot(){}
+    //static void shoot(){}
 }
