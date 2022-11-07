@@ -2,11 +2,10 @@ package de.buw.se4de;
 
 import java.awt.*;
 
-public class Player extends Object{
-
+public class Firefighter extends Object{
     ObjectManagement objects;
 
-    public Player (int x, int y, ID id, ObjectManagement objects){
+    public Firefighter(int x, int y, ID id, ObjectManagement objects){
         super(x, y, id);
         this.objects = objects;
     }
@@ -42,9 +41,8 @@ public class Player extends Object{
     }
 
     public void draw(Graphics g){
-        //example to test
-        g.setColor(Color.blue);
-        g.fillRect(x, y, 30, 30);
+        g.setColor(Color.white);
+        g.fillOval(x, y, 30, 30);
     }
 
 }
