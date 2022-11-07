@@ -3,7 +3,7 @@ package de.buw.se4de;
 import java.awt.*;
 
 public class Bullet extends Object {
-    Location location;
+    Location location; // TODO: Use Location class
 
     public Bullet(int x, int y, ID id,int dir_x, int dir_y) {
         super(x, y, id);
