@@ -7,8 +7,8 @@ public class Bullet extends Object {
 
     public Bullet(int x, int y, ID id,int dir_x, int dir_y) {
         super(x, y, id);
-        speed_x = (dir_x - x) / 10;
-        speed_y = (dir_y - y) / 10;
+        speed_x = (dir_x - x) / 10.0f;
+        speed_y = (dir_y - y) / 10.0f;
     }
 
     public void tick() {
