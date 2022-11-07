@@ -16,8 +16,7 @@ public class Game extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput(objects));
         this.addMouseListener(new MouseInput(objects));
 
-        //test Player Object
-        objects.addObject(new Player(50,50, ID.Player, objects));
+        objects.addObject(new Firefighter(50,50, ID.Player, objects));
     }
 
     private void start(){
@@ -80,8 +79,8 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         ////////////////////////////////////////
 
-        g.setColor(Color.red);
-        g.fillRect(50, 50,500,500);
+        g.setColor(Color.black);
+        g.fillRect(0, 0,600,600);
 
         objects.draw(g);
 
