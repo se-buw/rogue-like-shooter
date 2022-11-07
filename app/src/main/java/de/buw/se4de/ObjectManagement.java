@@ -9,14 +9,14 @@ public class ObjectManagement {
     private boolean up = false, down = false, right = false, left = false;
 
     public void tick(){
-        for(int i = 0; i < objects.size(); i++){
-            objects.get(i).tick();
+        for (Object object : objects) {
+            object.tick();
         }
     }
 
     public void draw(Graphics g){
-        for(int i = 0; i < objects.size(); i++){
-            objects.get(i).draw(g);
+        for (Object object : objects) {
+            object.draw(g);
         }
     }
 
