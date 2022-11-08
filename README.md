@@ -1,6 +1,7 @@
 # Firefighter
 
 BASIC FUNCTIONALITY
+- [ ] make bullet speed independent of distance to cursor
 - [ ] fix bug that makes game freeze
 - [ ] firefighter health (displayed as hearts in top left corner)
 - [ ] change bullet to water
