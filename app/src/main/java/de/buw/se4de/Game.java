@@ -18,10 +18,10 @@ public class Game extends Canvas implements Runnable {
         handler.addObject(new Firefighter(50, 50, ID.Player, handler));
 
         //create a frame
-        handler.addObject(new Frame(0,0,ID.Frame,5,600 ));
-        handler.addObject(new Frame(582,0,ID.Frame,5,600 ));
-        handler.addObject(new Frame(0,0,ID.Frame,600,5 ));
-        handler.addObject(new Frame(0,560,ID.Frame,600,5 ));
+        handler.addObject(new Frame(-2,0,ID.Frame,2,600 ));
+        handler.addObject(new Frame(587,0,ID.Frame,2,600 ));
+        handler.addObject(new Frame(0,-1,ID.Frame,600,1 ));
+        handler.addObject(new Frame(0,564,ID.Frame,600,2 ));
     }
 
     private void start(){
