@@ -28,4 +28,9 @@ public class Bullet extends Object {
         g.setColor(Color.white);
         g.fillOval(x, y, 10, 10);
     }
+
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, 10, 10);
+    }
 }

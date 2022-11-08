@@ -1,13 +1,14 @@
 package de.buw.se4de;
 
+import javax.print.attribute.standard.JobKOctets;
 import java.awt.*;
 
 public class Firefighter extends Object{
-    Handler objects;
+    Handler handler;
 
-    public Firefighter(int x, int y, ID id, Handler objects){
+    public Firefighter(int x, int y, ID id, Handler handler){
         super(x, y, id);
-        this.objects = objects;
+        this.handler = handler;
     }
 
     public void tick()
@@ -15,27 +16,29 @@ public class Firefighter extends Object{
         x += speed_x;
         y += speed_y;
 
-        if(objects.isUp()){
+        collision();
+
+        if(handler.isUp()){
             speed_y = -5;
-        } else if (!objects.isDown()){
+        } else if (!handler.isDown()){
             speed_y = 0;
         }
 
-        if(objects.isDown()){
+        if(handler.isDown()){
             speed_y = 5;
-        } else if (!objects.isUp()){
+        } else if (!handler.isUp()){
             speed_y = 0;
         }
 
-        if(objects.isRight()){
+        if(handler.isRight()){
             speed_x = 5;
-        } else if (!objects.isLeft()){
+        } else if (!handler.isLeft()){
             speed_x = 0;
         }
 
-        if(objects.isLeft()){
+        if(handler.isLeft()){
             speed_x = -5;
-        } else if (!objects.isRight()){
+        } else if (!handler.isRight()){
             speed_x = 0;
         }
     }
@@ -43,6 +46,23 @@ public class Firefighter extends Object{
     public void draw(Graphics g){
         g.setColor(Color.white);
         g.fillOval(x, y, 30, 30);
+    }
+
+    private void collision(){
+        for (int i=0; i < handler.objects.size(); i++){
+            Object temp = handler.objects.get(i);
+            if (temp.getId() == ID.Frame){
+                if (getBounds().intersects(temp.getBounds())){
+                    x += speed_x * -1;
+                    y += speed_y * -1;
+                }
+            }
+        }
+    }
+
+    @Override
+    public Rectangle getBounds() {
+       return new Rectangle(x, y, 30, 30);
     }
 
 }

@@ -7,16 +7,21 @@ public class Game extends Canvas implements Runnable {
 
     private Boolean isRunning = false;
     private Thread thread;
-    private Handler om;
+    private Handler handler;
 
-    public Game(){
-        new Window(600,600,"Firefighter", this);
+    public Game() {
+        new Window(600, 600, "Firefighter", this);
         start();
-        om = new Handler();
-        this.addKeyListener(new KeyInput(om));
-        this.addMouseListener(new MouseInput(om));
+        handler = new Handler();
+        this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(new MouseInput(handler));
+        handler.addObject(new Firefighter(50, 50, ID.Player, handler));
 
-        om.addObject(new Firefighter(50,50, ID.Player, om));
+        //create a frame
+        handler.addObject(new Frame(0,0,ID.Frame,5,600 ));
+        handler.addObject(new Frame(582,0,ID.Frame,5,600 ));
+        handler.addObject(new Frame(0,0,ID.Frame,600,5 ));
+        handler.addObject(new Frame(0,560,ID.Frame,600,5 ));
     }
 
     private void start(){
@@ -68,7 +73,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void tick(){
-        om.tick();
+        handler.tick();
     }
     public void draw(){
         BufferStrategy bs = this.getBufferStrategy();
@@ -82,7 +87,7 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0,600,600);
 
-        om.draw(g);
+        handler.draw(g);
 
         ////////////////////////////////////////
         g.dispose();

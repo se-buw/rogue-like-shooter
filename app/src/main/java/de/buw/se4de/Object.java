@@ -56,5 +56,7 @@ public abstract class Object {
         this.id = id;
     }
 
-    //static void shoot(){}
+    //get bounding rectangle
+    public abstract Rectangle getBounds();
+
 }
