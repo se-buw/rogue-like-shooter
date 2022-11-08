@@ -3,7 +3,7 @@ package de.buw.se4de;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class ObjectManagement {
+public class Handler {
 
     LinkedList<Object> objects = new LinkedList<Object>();
     private boolean up = false, down = false, right = false, left = false;

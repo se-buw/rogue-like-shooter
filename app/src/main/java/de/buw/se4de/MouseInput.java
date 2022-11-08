@@ -5,9 +5,9 @@ import java.awt.event.MouseEvent;
 
 public class MouseInput extends MouseAdapter {
 
-    private ObjectManagement objects;
+    private Handler objects;
 
-    public MouseInput(ObjectManagement objects)
+    public MouseInput(Handler objects)
     {
         this.objects = objects;
     }

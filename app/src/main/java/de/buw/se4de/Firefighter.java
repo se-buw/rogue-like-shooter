@@ -3,9 +3,9 @@ package de.buw.se4de;
 import java.awt.*;
 
 public class Firefighter extends Object{
-    ObjectManagement objects;
+    Handler objects;
 
-    public Firefighter(int x, int y, ID id, ObjectManagement objects){
+    public Firefighter(int x, int y, ID id, Handler objects){
         super(x, y, id);
         this.objects = objects;
     }

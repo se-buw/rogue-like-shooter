@@ -4,9 +4,9 @@ import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
 
-    ObjectManagement objects; //we need a better name for it. see line 15
+    Handler objects; //we need a better name for it. see line 15
 
-    public KeyInput(ObjectManagement objects){
+    public KeyInput(Handler objects){
         this.objects = objects;
     }
 
