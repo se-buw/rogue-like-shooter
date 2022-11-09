@@ -52,6 +52,10 @@ public abstract class Object {
         return id;
     }
 
+    public int getHearts(){
+        return 0;
+    }
+
     public void setId(ID id) {
         this.id = id;
     }

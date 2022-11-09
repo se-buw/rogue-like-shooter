@@ -17,23 +17,36 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(new MouseInput(handler));
-        handler.addObject(new Firefighter(50, 50, ID.Player, handler));
+        handler.addObject(new Firefighter(50, 50, ID.Player, handler,6));
 
         // create the mother of all fires
         int randomX = ThreadLocalRandom.current().nextInt(100, 500);
         int randomY = ThreadLocalRandom.current().nextInt(100, 500);
-        handler.addObject(new Fire (randomX, randomY, (ID.Fire), handler));
+        handler.addObject(new Fire(randomX, randomY, (ID.Fire), handler));
 
         //create a frame
-        handler.addObject(new Frame(-2,0,ID.Frame,2,600 ));
-        handler.addObject(new Frame(587,0,ID.Frame,2,600 ));
-        handler.addObject(new Frame(0,-1,ID.Frame,600,1 ));
-        handler.addObject(new Frame(0,564,ID.Frame,600,2 ));
+        handler.addObject(new Frame(-2, 0, ID.Frame, 2, 600));
+        handler.addObject(new Frame(587, 0, ID.Frame, 2, 600));
+        handler.addObject(new Frame(0, -1, ID.Frame, 600, 1));
+        handler.addObject(new Frame(0, 564, ID.Frame, 600, 2));
 
         //heart
-        handler.addObject(new Hearts(0,30,ID.Hearts));
-        handler.addObject(new Hearts(30,30,ID.Hearts));
-        handler.addObject(new Hearts(60,30,ID.Hearts));
+        for (int i = 0; i < handler.objects.size(); i++) {
+            Object temp = handler.objects.get(i);
+
+            if (temp.getId() == ID.Player) {
+                int hearts_x = 0;
+                for (int k = 0; k < temp.getHearts(); k++) {
+                    handler.addObject(new Hearts(hearts_x, 30, ID.Hearts));
+                    hearts_x += 30;
+                }
+            }
+
+
+            // handler.addObject(new Hearts(0,30,ID.Hearts));
+            //handler.addObject(new Hearts(30,30,ID.Hearts));
+            //handler.addObject(new Hearts(60,30,ID.Hearts));
+        }
     }
 
     private void start(){
