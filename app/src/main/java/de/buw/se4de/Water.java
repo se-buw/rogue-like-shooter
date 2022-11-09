@@ -4,6 +4,8 @@ import java.awt.*;
 
 public class Water extends Object {
 
+    Handler handler;
+
     public Water(int x, int y, ID id, int dir_x, int dir_y) {
         super(x, y, id);
         calculateSpeed(x, y, dir_x, dir_y);
@@ -26,6 +28,18 @@ public class Water extends Object {
     public void draw(Graphics g) {
         g.setColor(Color.blue);
         g.fillOval(x, y, 10, 10);
+    }
+
+    private void collision(){
+        for (int i=0; i < handler.objects.size(); i++){
+            Object temp = handler.objects.get(i);
+
+            if (temp.getId() == ID.Fire){
+                if (getBounds().intersects(temp.getBounds())){
+                    handler.removeObject(temp);
+                }
+            }
+        }
     }
 
     @Override
