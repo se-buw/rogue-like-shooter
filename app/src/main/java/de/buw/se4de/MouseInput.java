@@ -20,7 +20,7 @@ public class MouseInput extends MouseAdapter {
             Object temp = objects.objects.get(i);
 
             if (temp.getId() == ID.Player){
-                objects.addObject(new Water(temp.getX()+10, temp.getY() + 10, ID.Bullet, x, y));
+                objects.addObject(new Water(temp.getX()+10, temp.getY() + 10, ID.Water, x, y, objects));
             }
         }
 

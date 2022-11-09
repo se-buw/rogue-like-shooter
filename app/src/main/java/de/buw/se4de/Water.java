@@ -6,9 +6,10 @@ public class Water extends Object {
 
     Handler handler;
 
-    public Water(int x, int y, ID id, int dir_x, int dir_y) {
+    public Water(int x, int y, ID id, int dir_x, int dir_y, Handler handler) {
         super(x, y, id);
         calculateSpeed(x, y, dir_x, dir_y);
+        this.handler = handler;
     }
 
     public void calculateSpeed(int fromX, int fromY, int toX, int toY)
@@ -23,6 +24,7 @@ public class Water extends Object {
         x += speed_x;
         y += speed_y;
 
+        collision();
     }
 
     public void draw(Graphics g) {
