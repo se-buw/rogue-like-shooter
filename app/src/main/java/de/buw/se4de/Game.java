@@ -18,8 +18,8 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(new MouseInput(handler));
         handler.addObject(new Firefighter(50, 50, ID.Player, handler));
 
-        int randomX = ThreadLocalRandom.current().nextInt(0, 600);
-        int randomY = ThreadLocalRandom.current().nextInt(0, 600);
+        int randomX = ThreadLocalRandom.current().nextInt(100, 500);
+        int randomY = ThreadLocalRandom.current().nextInt(100, 500);
 
         handler.addObject(new Fire (randomX, randomY, (ID.Fire)));
 
