@@ -2,8 +2,8 @@ package de.buw.se4de;
 
 public enum ID {
     Player(),
-    Enemy(),
-    Bullet(),
+    Fire(),
+    Water(),
     Frame(),
-    Hearts();
+    Hearts()
 }

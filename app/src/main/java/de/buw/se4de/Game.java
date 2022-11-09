@@ -2,6 +2,7 @@ package de.buw.se4de;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game extends Canvas implements Runnable {
 
@@ -16,6 +17,11 @@ public class Game extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(new MouseInput(handler));
         handler.addObject(new Firefighter(50, 50, ID.Player, handler));
+
+        int randomX = ThreadLocalRandom.current().nextInt(0, 600);
+        int randomY = ThreadLocalRandom.current().nextInt(0, 600);
+
+        handler.addObject(new Fire (randomX, randomY, (ID.Fire)));
 
         //create a frame
         handler.addObject(new Frame(-2,0,ID.Frame,2,600 ));
@@ -98,6 +104,4 @@ public class Game extends Canvas implements Runnable {
         g.dispose();
         bs.show();
     }
-
-
 }
