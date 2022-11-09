@@ -2,10 +2,9 @@ package de.buw.se4de;
 
 import java.awt.*;
 
-public class Bullet extends Object {
-    Location location; // TODO: Use Location class
+public class Water extends Object {
 
-    public Bullet(int x, int y, ID id, int dir_x, int dir_y) {
+    public Water(int x, int y, ID id, int dir_x, int dir_y) {
         super(x, y, id);
         calculateSpeed(x, y, dir_x, dir_y);
     }
@@ -25,7 +24,7 @@ public class Bullet extends Object {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.white);
+        g.setColor(Color.blue);
         g.fillOval(x, y, 10, 10);
     }
 
