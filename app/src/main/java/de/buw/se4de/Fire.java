@@ -4,16 +4,21 @@ import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Fire extends Object{
-
     Handler handler;
 
     public Fire(int x, int y, ID id, Handler handler) {
         super(x, y, id);
         this.handler = handler;
+        handler.amountOfFires++;
     }
 
     @Override
     public void tick() {
+        if(handler.amountOfFires < 5){
+            int randomX = ThreadLocalRandom.current().nextInt(100, 500);
+            int randomY = ThreadLocalRandom.current().nextInt(100, 500);
+            handler.addObject(new Fire (randomX, randomY, (ID.Fire), handler));
+        }
     }
 
     @Override

@@ -13,11 +13,13 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         new Window(600, 600, "Firefighter", this);
         start();
+
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(new MouseInput(handler));
         handler.addObject(new Firefighter(50, 50, ID.Player, handler));
 
+        // create the mother of all fires
         int randomX = ThreadLocalRandom.current().nextInt(100, 500);
         int randomY = ThreadLocalRandom.current().nextInt(100, 500);
         handler.addObject(new Fire (randomX, randomY, (ID.Fire), handler));
@@ -55,26 +57,18 @@ public class Game extends Canvas implements Runnable {
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
-        long timer = System.currentTimeMillis();
-        int frames = 0;
+
         while(isRunning){
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
             while (delta >= 1){
-                tick();
-                // updates++;
+                handler.tick();
                 delta--;
             }
             draw();
-            frames++;
-
-            if(System.currentTimeMillis() > 1000){
-                timer += 1000;
-                frames = 0;
-                // updates = 0;
-            }
         }
+
         try {
             stop();
         } catch (InterruptedException e) {
@@ -82,9 +76,6 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    public void tick(){
-        handler.tick();
-    }
     public void draw(){
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
