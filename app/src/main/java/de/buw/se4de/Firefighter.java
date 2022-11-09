@@ -18,8 +18,7 @@ public class Firefighter extends Object{
         return hearts;
     }
 
-    public void tick()
-    {
+    public void tick() {
         x += speed_x;
         y += speed_y;
 
@@ -80,6 +79,7 @@ public class Firefighter extends Object{
                             int randomX = ThreadLocalRandom.current().nextInt(100, 500);
                             int randomY = ThreadLocalRandom.current().nextInt(100, 500);
                             handler.addObject(new Fire (randomX, randomY, (ID.Fire), handler));
+                            hearts--;
                         }
                     }
                 }

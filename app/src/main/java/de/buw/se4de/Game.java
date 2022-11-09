@@ -17,7 +17,7 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(new MouseInput(handler));
-        handler.addObject(new Firefighter(50, 50, ID.Player, handler,3));
+        handler.addObject(new Firefighter(50, 50, ID.Player, handler,4));
 
         // create the mother of all fires
         int randomX = ThreadLocalRandom.current().nextInt(100, 500);
@@ -106,6 +106,9 @@ public class Game extends Canvas implements Runnable {
                     g.setColor(Color.yellow);
                     g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
                     g.drawString("Game Over", 150, 280);
+                    temp.setSpeed_x(0.0f);
+                    temp.setSpeed_y(0.0f);
+
                 }
             }
         }
