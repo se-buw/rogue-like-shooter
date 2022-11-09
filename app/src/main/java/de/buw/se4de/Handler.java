@@ -11,8 +11,8 @@ public class Handler {
     public void tick(){
         //for (Object object : objects) {
         //    object.tick();
-        for (Object object : objects) {
-            object.tick();
+        for(int i = 0; i < objects.size(); i++){
+            objects.get(i).tick();
         }
     }
 

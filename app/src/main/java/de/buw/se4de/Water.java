@@ -1,6 +1,7 @@
 package de.buw.se4de;
 
 import java.awt.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Water extends Object {
 
@@ -39,6 +40,10 @@ public class Water extends Object {
             if (temp.getId() == ID.Fire){
                 if (getBounds().intersects(temp.getBounds())){
                     handler.removeObject(temp);
+                    //creates a new fire immediately after the last one is dead
+                    int randomX = ThreadLocalRandom.current().nextInt(100, 500);
+                    int randomY = ThreadLocalRandom.current().nextInt(100, 500);
+                    handler.addObject(new Fire (randomX, randomY, (ID.Fire), handler));
                 }
             }
         }

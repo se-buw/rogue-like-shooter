@@ -20,8 +20,7 @@ public class Game extends Canvas implements Runnable {
 
         int randomX = ThreadLocalRandom.current().nextInt(100, 500);
         int randomY = ThreadLocalRandom.current().nextInt(100, 500);
-
-        handler.addObject(new Fire (randomX, randomY, (ID.Fire)));
+        handler.addObject(new Fire (randomX, randomY, (ID.Fire), handler));
 
         //create a frame
         handler.addObject(new Frame(-2,0,ID.Frame,2,600 ));
