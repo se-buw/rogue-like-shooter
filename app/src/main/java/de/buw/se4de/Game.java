@@ -17,7 +17,7 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(new MouseInput(handler));
-        handler.addObject(new Firefighter(50, 50, ID.Player, handler,6));
+        handler.addObject(new Firefighter(50, 50, ID.Player, handler,3));
 
         // create the mother of all fires
         int randomX = ThreadLocalRandom.current().nextInt(100, 500);
@@ -41,11 +41,6 @@ public class Game extends Canvas implements Runnable {
                     hearts_x += 30;
                 }
             }
-
-
-            // handler.addObject(new Hearts(0,30,ID.Hearts));
-            //handler.addObject(new Hearts(30,30,ID.Hearts));
-            //handler.addObject(new Hearts(60,30,ID.Hearts));
         }
     }
 
@@ -54,7 +49,8 @@ public class Game extends Canvas implements Runnable {
         thread = new Thread(this);
         thread.start();
     }
-    private void stop() throws InterruptedException {
+
+    public void stop() throws InterruptedException {
         isRunning = false;
         thread.join();
     }
@@ -100,8 +96,19 @@ public class Game extends Canvas implements Runnable {
 
         g.setColor(Color.black);
         g.fillRect(0, 0,600,600);
-
         handler.draw(g);
+
+        for (int i=0; i < handler.objects.size(); i++){
+            Object temp = handler.objects.get(i);
+
+            if (temp.getId() == ID.Player){
+                if (temp.getHearts() == 0){
+                    g.setColor(Color.yellow);
+                    g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
+                    g.drawString("Game Over", 150, 280);
+                }
+            }
+        }
 
         ////////////////////////////////////////
         g.dispose();
