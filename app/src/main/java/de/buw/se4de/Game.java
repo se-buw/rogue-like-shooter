@@ -22,6 +22,11 @@ public class Game extends Canvas implements Runnable {
         handler.addObject(new Frame(587,0,ID.Frame,2,600 ));
         handler.addObject(new Frame(0,-1,ID.Frame,600,1 ));
         handler.addObject(new Frame(0,564,ID.Frame,600,2 ));
+
+        //heart
+        handler.addObject(new Hearts(0,30,ID.Hearts));
+        handler.addObject(new Hearts(30,30,ID.Hearts));
+        handler.addObject(new Hearts(60,30,ID.Hearts));
     }
 
     private void start(){

@@ -51,7 +51,8 @@ public class Firefighter extends Object{
     private void collision(){
         for (int i=0; i < handler.objects.size(); i++){
             Object temp = handler.objects.get(i);
-            if (temp.getId() == ID.Frame){
+
+            if ((temp.getId() == ID.Frame) || (temp.getId() == ID.Hearts)){
                 if (getBounds().intersects(temp.getBounds())){
                     x += speed_x * -1;
                     y += speed_y * -1;
