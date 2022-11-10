@@ -19,16 +19,16 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(new MouseInput(handler));
         handler.addObject(new Firefighter(50, 50, ID.Player, handler,4));
 
-        // create the mother of all fires
+        // create the first fire
         int randomX = ThreadLocalRandom.current().nextInt(100, 500);
         int randomY = ThreadLocalRandom.current().nextInt(100, 500);
         handler.addObject(new Fire(randomX, randomY, (ID.Fire), handler));
 
         //create a frame
-        handler.addObject(new Frame(-2, 0, ID.Frame, 2, 600));
-        handler.addObject(new Frame(587, 0, ID.Frame, 2, 600));
-        handler.addObject(new Frame(0, -1, ID.Frame, 600, 1));
-        handler.addObject(new Frame(0, 564, ID.Frame, 600, 2));
+        handler.addObject(new Frame(-2, 0, ID.Frame, 2, 600)); // left
+        handler.addObject(new Frame(600, 0, ID.Frame, 2, 600)); // right
+        handler.addObject(new Frame(0, -1, ID.Frame, 600, 1)); // top
+        handler.addObject(new Frame(0, 573, ID.Frame, 600, 2)); // bottom
 
         //create hearts
         for (int i = 0; i < handler.objects.size(); i++) {
