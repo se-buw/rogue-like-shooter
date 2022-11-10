@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class Handler {
+    //used to manage all of the objects we have in the game
 
     LinkedList<Object> objects = new LinkedList<Object>();
     private boolean up = false, down = false, right = false, left = false;

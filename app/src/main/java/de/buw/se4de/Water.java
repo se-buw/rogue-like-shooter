@@ -34,6 +34,8 @@ public class Water extends Object {
     }
 
     private void collision(){
+        //check if Water intersects the Fire, in this case Fire object disappears and appears in another place
+
         for (int i=0; i < handler.objects.size(); i++){
             Object temp = handler.objects.get(i);
 

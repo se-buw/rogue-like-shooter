@@ -13,35 +13,21 @@ public abstract class Object {
         this.id = id;
     }
 
+    //update of the object
     public abstract void tick();
+    //rendering of the object
     public abstract void draw(Graphics g);
 
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public float getSpeed_x() {
-        return speed_x;
-    }
-
     public void setSpeed_x(float speed_x) {
         this.speed_x = speed_x;
-    }
-
-    public float getSpeed_y() {
-        return speed_y;
     }
 
     public void setSpeed_y(float speed_y) {
@@ -56,11 +42,6 @@ public abstract class Object {
         return 0;
     }
 
-    public void setId(ID id) {
-        this.id = id;
-    }
-
-    //get bounding rectangle
+    //get bounding rectangle for the collision system
     public abstract Rectangle getBounds();
-
 }

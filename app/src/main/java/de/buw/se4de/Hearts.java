@@ -16,7 +16,6 @@ public class Hearts extends Object{
     @Override
     public void draw(Graphics g) {
         g.setColor(Color.red);
-        //drawHeart(g,x, y, 20, 20);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
         g.drawString("\u2665", x, y);
     }

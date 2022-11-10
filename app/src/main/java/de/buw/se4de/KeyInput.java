@@ -4,29 +4,29 @@ import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
 
-    Handler objects; //we need a better name for it. see line 15
+    Handler handler; //we need a better name for it. see line 15
 
     public KeyInput(Handler objects){
-        this.objects = objects;
+        this.handler = objects;
     }
 
     public void keyPressed(KeyEvent e){
         int key = e.getKeyCode();
-        for (int i = 0; i < objects.objects.size();i++){
-            Object temp = objects.objects.get(i);
+        for (int i = 0; i < handler.objects.size(); i++){
+            Object temp = handler.objects.get(i);
 
             if (temp.id == ID.Player){
                 if (key == KeyEvent.VK_W) {
-                    objects.setUp(true);
+                    handler.setUp(true);
                 }
                 else if (key == KeyEvent.VK_A) {
-                    objects.setLeft(true);
+                    handler.setLeft(true);
                 }
                 else if (key == KeyEvent.VK_S) {
-                    objects.setDown(true);
+                    handler.setDown(true);
                 }
                 else if (key == KeyEvent.VK_D) {
-                    objects.setRight(true);
+                    handler.setRight(true);
                 }
             }
         }
@@ -34,21 +34,21 @@ public class KeyInput extends KeyAdapter {
 
     public void keyReleased(KeyEvent e){
         int key = e.getKeyCode();
-        for (int i = 0; i < objects.objects.size();i++){
-            Object temp = objects.objects.get(i);
+        for (int i = 0; i < handler.objects.size(); i++){
+            Object temp = handler.objects.get(i);
 
             if (temp.id == ID.Player){
                 if (key == KeyEvent.VK_W) {
-                    objects.setUp(false);
+                    handler.setUp(false);
                 }
                 else if (key == KeyEvent.VK_A) {
-                    objects.setLeft(false);
+                    handler.setLeft(false);
                 }
                 else if (key == KeyEvent.VK_S) {
-                    objects.setDown(false);
+                    handler.setDown(false);
                 }
                 else if (key == KeyEvent.VK_D) {
-                    objects.setRight(false);
+                    handler.setRight(false);
                 }
             }
         }

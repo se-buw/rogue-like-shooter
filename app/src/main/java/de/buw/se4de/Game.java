@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable {
         handler.addObject(new Frame(0, -1, ID.Frame, 600, 1));
         handler.addObject(new Frame(0, 564, ID.Frame, 600, 2));
 
-        //heart
+        //create hearts
         for (int i = 0; i < handler.objects.size(); i++) {
             Object temp = handler.objects.get(i);
 
@@ -59,7 +59,8 @@ public class Game extends Canvas implements Runnable {
         new Game();
     }
 
-    @Override
+    //game loop
+    //updates the frame 60 times per second
     public void run() {
         this.requestFocus();
         long lastTime = System.nanoTime();
@@ -85,19 +86,24 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
+    //image rendering
     public void draw(){
+
+        //BufferStrategy is responsible for preloading 3 frames before updating to make game run smoothly
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
             this.createBufferStrategy(3);
             return;
         }
-        Graphics g = bs.getDrawGraphics();
-        ////////////////////////////////////////
 
+        Graphics g = bs.getDrawGraphics();
+
+        //background
         g.setColor(Color.black);
         g.fillRect(0, 0,600,600);
         handler.draw(g);
 
+        //make Player freeze and call "Game over" when there are no hearts left
         for (int i=0; i < handler.objects.size(); i++){
             Object temp = handler.objects.get(i);
 
@@ -113,7 +119,6 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-        ////////////////////////////////////////
         g.dispose();
         bs.show();
     }
