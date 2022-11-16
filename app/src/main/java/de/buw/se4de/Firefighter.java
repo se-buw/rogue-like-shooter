@@ -115,7 +115,7 @@ public class Firefighter extends Object {
     }
 
     public void takedamage(int attackdamage) {
-        --health;
+        health-=attackdamage;
         if(health <= 0)
             System.out.println("DEAD");//TODO death method
     }
