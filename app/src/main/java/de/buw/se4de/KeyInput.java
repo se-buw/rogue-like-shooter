@@ -12,6 +12,7 @@ public class KeyInput extends KeyAdapter {
 
     public void keyPressed(KeyEvent e){
         int key = e.getKeyCode();
+        /*
         for (int i = 0; i < handler.objects.size(); i++){
             Object temp = handler.objects.get(i);
 
@@ -29,12 +30,18 @@ public class KeyInput extends KeyAdapter {
                     handler.setRight(true);
                 }
             }
+        }*/
+        switch (key) {
+            case KeyEvent.VK_W -> handler.setUp(true);
+            case KeyEvent.VK_A -> handler.setLeft(true);
+            case KeyEvent.VK_S -> handler.setDown(true);
+            case KeyEvent.VK_D -> handler.setRight(true);
         }
     }
 
     public void keyReleased(KeyEvent e){
         int key = e.getKeyCode();
-        for (int i = 0; i < handler.objects.size(); i++){
+        /*for (int i = 0; i < handler.objects.size(); i++){
             Object temp = handler.objects.get(i);
 
             if (temp.id == ID.Player){
@@ -51,6 +58,12 @@ public class KeyInput extends KeyAdapter {
                     handler.setRight(false);
                 }
             }
+        }*/
+        switch (key) {
+            case KeyEvent.VK_W -> handler.setUp(false);
+            case KeyEvent.VK_A -> handler.setLeft(false);
+            case KeyEvent.VK_S -> handler.setDown(false);
+            case KeyEvent.VK_D -> handler.setRight(false);
         }
     }
 }

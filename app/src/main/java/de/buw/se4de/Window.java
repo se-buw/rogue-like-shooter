@@ -16,4 +16,8 @@ public class Window {
 		frame.setVisible(true);
 	}
 
+	public void showrestart(){
+
+	}
+
 }

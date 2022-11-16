@@ -2,7 +2,7 @@ package de.buw.se4de;
 
 import java.awt.*;
 
-public class Frame extends Object{
+public class Frame extends Object{//TODO into GUI
 
     int width, length;
 
@@ -12,7 +12,7 @@ public class Frame extends Object{
         this.width = width;
     }
 
-    public void tick() {
+    public void tick(int deltatick) {
     }
 
     public void draw(Graphics g) {
@@ -23,5 +23,5 @@ public class Frame extends Object{
     @Override
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, length);
-    }
+    }//TODO use this as walls(smaller)
 }

@@ -6,31 +6,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Game extends Canvas implements Runnable {
 
-    private Boolean isRunning = false;
     private Thread thread;
     private Handler handler;
 
     public Game() {
         new Window(600, 600, "Firefighter", this);
-        start();
 
-        handler = new Handler();
-        this.addKeyListener(new KeyInput(handler));
-        this.addMouseListener(new MouseInput(handler));
-        handler.addObject(new Firefighter(50, 50, ID.Player, handler,4));
-
-        // create the first fire
-        int randomX = ThreadLocalRandom.current().nextInt(100, 500);
-        int randomY = ThreadLocalRandom.current().nextInt(100, 500);
-        handler.addObject(new Fire(randomX, randomY, (ID.Fire), handler));
-
-        //create a frame
-        handler.addObject(new Frame(-2, 0, ID.Frame, 2, 600)); // left
-        handler.addObject(new Frame(600, 0, ID.Frame, 2, 600)); // right
-        handler.addObject(new Frame(0, -1, ID.Frame, 600, 1)); // top
-        handler.addObject(new Frame(0, 573, ID.Frame, 600, 2)); // bottom
-
+        initialize();
         //create hearts
+        /*
         for (int i = 0; i < handler.objects.size(); i++) {
             Object temp = handler.objects.get(i);
 
@@ -41,18 +25,39 @@ public class Game extends Canvas implements Runnable {
                     hearts_x += 30;
                 }
             }
-        }
+        }*/
+        start();//start after initialization
+        run();
     }
+    private void initialize(){
+        handler = new Handler();
+        // create the first fire
+        int randomX = ThreadLocalRandom.current().nextInt(100, 500);//TODO change spawn mechanism
+        int randomY = ThreadLocalRandom.current().nextInt(100, 500);
 
+        handler.addObject(new Fire(randomX, randomY, (ID.Fire), handler));
+
+        this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(new MouseInput(handler));
+
+        //create a frame
+        handler.addObject(new Frame(-2, 0, ID.Frame, 2, 600)); // left
+        handler.addObject(new Frame(600, 0, ID.Frame, 2, 600)); // right
+        handler.addObject(new Frame(0, -1, ID.Frame, 600, 1)); // top
+        handler.addObject(new Frame(0, 573, ID.Frame, 600, 2)); // bottom
+
+        //Create UI
+        handler.addGUI(new GUI(0,0,ID.GUI,handler.player));
+    }
     private void start(){
-        isRunning = true;
-        thread = new Thread(this);
-        thread.start();
+        handler.game_isrunning = true;//TODO ????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????THREAD?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+        //thread = new Thread(this);
+        //thread.start();
     }
 
     public void stop() throws InterruptedException {
-        isRunning = false;
-        thread.join();
+        handler.game_isrunning = false;
+        //thread.join();
     }
 
     public static void main(String[]args){
@@ -68,13 +73,13 @@ public class Game extends Canvas implements Runnable {
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
 
-        while(isRunning){
+        while(handler.game_isrunning){
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
-            while (delta >= 1){
-                handler.tick();
-                delta--;
+            if (delta >= 1){
+                handler.tick((int)delta);
+                delta -= (int)delta;
             }
             draw();
         }
@@ -88,7 +93,6 @@ public class Game extends Canvas implements Runnable {
 
     //image rendering
     public void draw(){
-
         //BufferStrategy is responsible for preloading 3 frames before updating to make game run smoothly
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
@@ -99,11 +103,12 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
         //background
-        g.setColor(Color.black);
+        g.setColor(Color.gray);
         g.fillRect(0, 0,600,600);
         handler.draw(g);
 
         //make Player freeze and call "Game over" when there are no hearts left
+        /*
         for (int i=0; i < handler.objects.size(); i++){
             Object temp = handler.objects.get(i);
 
@@ -117,6 +122,14 @@ public class Game extends Canvas implements Runnable {
 
                 }
             }
+        }*/
+        if(handler.player.getHealth() == 0){//TODO irgendwo anders
+            handler.draw(g);
+            handler.gui.DrawDeathScreen(g);
+            while (bs != null) {bs.show();}
+            handler.game_isrunning = false;
+            //handler.player.setSpeed_x(0.0f);
+            //handler.player.setSpeed_y(0.0f);
         }
 
         g.dispose();

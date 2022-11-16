@@ -14,7 +14,7 @@ public abstract class Object {
     }
 
     //update of the object
-    public abstract void tick();
+    public abstract void tick(int deltatick);
     //rendering of the object
     public abstract void draw(Graphics g);
 
@@ -38,10 +38,11 @@ public abstract class Object {
         return id;
     }
 
-    public int getHearts(){
+    public int getHealth(){
         return 0;
     }
 
     //get bounding rectangle for the collision system
-    public abstract Rectangle getBounds();
+    public abstract Rectangle getBounds();//TODO kreisklasse
+
 }
