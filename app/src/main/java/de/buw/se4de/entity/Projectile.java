@@ -26,8 +26,11 @@ public abstract class Projectile extends Object{
     public void calculateSpeed(int fromX, int fromY, int toX, int toY) {
         double distance = Math.sqrt(Math.pow((toX - fromX), 2) + Math.pow((toY - fromY), 2));
         double speed = 7;
-        this.speed_y = (float)((toY - fromY) * speed / distance);//TODO NORMALIZE!!!
-        this.speed_x = (float)((toX - fromX) * speed / distance);
+
+        double mult = speed/Math.sqrt((toY - fromY)*(toY - fromY) + (toX - fromX)*(toX - fromX));
+
+        this.speed_y = (float)((toY - fromY)*mult);
+        this.speed_x = (float)((toX - fromX)*mult);
     }
 
     public void tick(int deltatick) {

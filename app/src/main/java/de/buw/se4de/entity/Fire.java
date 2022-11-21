@@ -16,13 +16,14 @@ public class Fire extends Enemy {
         movementspeed = 2;
         attackrange = 90;
         attackdamage = 1;
+        health=200000;
     }
 
     @Override
     public void tick(int deltatick) {
         if(!friendly) {
-            speed_x = (handler.player.getX() - getX()) + (r.nextFloat(upperbound) - r.nextFloat(upperbound));//towards player + random movement
-            speed_y = (handler.player.getY() - getY()) + (r.nextFloat(upperbound) - r.nextFloat(upperbound));//towards player + random movement
+            speed_x = (handler.player.getX() - getX());
+            speed_y = (handler.player.getY() - getY());
         }else {
             //TODO fiend other flame/or other ideas
         }

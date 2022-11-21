@@ -6,17 +6,21 @@ import de.buw.se4de.gameflow.Handler;
 import java.awt.*;
 
 public class RangedFire extends Enemy{
+    double distance=0;
     public RangedFire(int x, int y, ID id, int hp, Handler h, int ar) {
         super(x, y, id, hp, h, ar);
-        oncooldown = 3.0f;
+        oncooldown = 2.0f;
     }
 
     @Override
     public void draw(Graphics g) {
         g.setColor(Color.YELLOW);
-        if(Math.sqrt(Math.pow(handler.player.getX() - (getX()-attackrange/2),2) + Math.pow(handler.player.getY()-getY(),2)) <= attackrange)
+        if(distance <= attackrange)
             g.setColor(Color.RED);
-        g.drawOval(getX()-(attackrange/2),getY()-(attackrange/2),this.attackrange,this.attackrange);
+        g.drawOval(getX()-attackrange,getY()-attackrange,this.attackrange*2,this.attackrange*2);
+        g.setColor(Color.green);
+        g.drawLine(getX(),getY(),handler.player.getX(),handler.player.getY());
+        g.drawOval((int)(getX()-distance),(int)(getY()-distance),(int)distance*2,(int)distance*2);
         if(!friendly)
             g.setColor(Color.orange);
         else
@@ -32,9 +36,13 @@ public class RangedFire extends Enemy{
     @Override
     public void tick(int deltatick){
         if(!friendly) {
-            speed_x = (handler.player.getX() - getX());//towards player + random movement
-            speed_y = (handler.player.getY() - getY());//towards player + random movement
-            if(Math.sqrt(Math.pow(handler.player.getX() - (getX()-attackrange/2),2) + Math.pow(handler.player.getY()-getY(),2)) <= attackrange){
+            speed_x = (handler.player.getX() - getX());
+            speed_y = (handler.player.getY() - getY());
+
+            float smallx = handler.player.getX() - (Math.abs(getX()));
+            float smally = handler.player.getY() - (Math.abs(getY()));
+            distance = Math.sqrt(smallx*smallx+smally*smally);
+            if(distance <= attackrange){
                 attack();
             }
             else{
@@ -56,11 +64,8 @@ public class RangedFire extends Enemy{
     @Override
     public void attack(){
         if(oncooldown <= 0.0f) {
-            System.out.println("DIEEE!");
             oncooldown = cooldown;
-            int shoot_x = (handler.player.getX() - getX());
-            int shoot_y = (handler.player.getY() - getY());
-            Fireball fb = new Fireball(getX(),getY(),ID.PROJECTILE,shoot_x,shoot_y,handler,1);
+            Fireball fb = new Fireball(getX(),getY(),ID.PROJECTILE,handler.player.getX(),handler.player.getY(),handler,1);
         }
     }
 }

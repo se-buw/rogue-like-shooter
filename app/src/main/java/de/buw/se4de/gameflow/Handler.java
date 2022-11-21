@@ -109,4 +109,8 @@ public class Handler {
         player = new Firefighter(50, 50, ID.Player, this,4);
         gui = new GUI(0,0,ID.GUI,player);
     }
+    private void newwave(){
+        ++wave;
+
+    }
 }
