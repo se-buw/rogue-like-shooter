@@ -16,7 +16,7 @@ public class Frame extends Object{//TODO into GUI
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.gray);
+        g.setColor(Color.BLACK);
         g.fillRect(x, y, width, length);
     }
 

@@ -3,6 +3,8 @@
  */
 package de.buw.se4de;
 
+import de.buw.se4de.gameflow.Game;
+
 import javax.swing.*;
 
 public class Window {

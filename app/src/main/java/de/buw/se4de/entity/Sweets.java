@@ -1,8 +1,12 @@
-package de.buw.se4de;
+package de.buw.se4de.entity;
+
+import de.buw.se4de.gameflow.Handler;
+import de.buw.se4de.ID;
+import de.buw.se4de.Object;
 
 import java.awt.*;
 
-public class Sweets extends Water{
+public class Sweets extends Projectile {
     public Sweets(int x, int y, ID id, int dir_x, int dir_y, Handler handler){
         super(x,y,id,dir_x,dir_y,handler);
     }
@@ -12,11 +16,11 @@ public class Sweets extends Water{
             Object temp = handler.objects.get(i);
             if (getBounds().intersects(temp.getBounds())) {
                 if (temp.getId() == ID.Frame) {
-                    handler.removeObject(this);
+                    kill();
                 }
-                if (temp.getId() == ID.Fire) {
-                    ((Fire)temp).setFriendly(true);
-                    handler.removeObject(this);
+                if (temp.getId() == ID.Enemy) {
+                    ((Enemy)temp).setFriendly(true);
+                    kill();
                 }
             }
         }
@@ -24,6 +28,6 @@ public class Sweets extends Water{
     @Override
     public void draw(Graphics g) {
         g.setColor(Color.CYAN);
-        g.fillOval(x, y, 10, 10);
+        g.fillOval(x, y, getSizex(), getSizey());
     }
 }

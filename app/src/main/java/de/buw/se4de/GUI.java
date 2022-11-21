@@ -1,11 +1,12 @@
 package de.buw.se4de;
 
+import de.buw.se4de.entity.Firefighter;
+
 import java.awt.*;
-import java.util.Vector;
 
 public class GUI extends Object{//TODO add frame
 
-    int width=600;
+    int width=1200;
     int height=35;
     Firefighter player;
     final Rectangle restartbutton;
@@ -14,13 +15,11 @@ public class GUI extends Object{//TODO add frame
         player = p;
         int hearts_x = 0;
         int hp = player.getHealth();//changed:added player to handler so one doesnt have to iterate over complete list everytime
-        restartbutton = new Rectangle(160,300,200,100);
+        restartbutton = new Rectangle(490,450,230,70);
     }
 
     @Override
-    public void tick(int deltatick) {
-
-    }
+    public void tick(int deltatick) {}
 
     @Override
     public void draw(Graphics g) {
@@ -30,6 +29,7 @@ public class GUI extends Object{//TODO add frame
         g.setColor(Color.white);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         g.drawString("extinguished: " + player.getFiresextinguished(), 280, 20);
+        //g.drawString("extinguished: " + player, 280, 20);
 
         for(int hp = 0;hp <  player.getHealth();++hp){
             drawhearts(g,hp);
@@ -43,17 +43,20 @@ public class GUI extends Object{//TODO add frame
     }
     public void DrawDeathScreen(Graphics g){
         g.setColor(Color.yellow);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
-        g.drawString("Game Over", 150, 280);
-        g.setFont(new Font("TimesRoman", Font.TYPE1_FONT, 40));
-        g.drawString("Restart",220,310);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 100));
+        g.drawString("Game Over", 380, 400);
+        g.setFont(new Font("TimesRoman", Font.TYPE1_FONT, 60));
+        g.drawString("Restart!",500,500);
+        g.drawRect(restartbutton.x, restartbutton.y, restartbutton.width, restartbutton.height);
     }
 
     @Override
     public Rectangle getBounds() {
         return new Rectangle(x,y, width,height);
     }
-    public  Rectangle getRestartButton(){
+    //TODO time
+
+    public Rectangle getRestartbutton() {
         return restartbutton;
-    }//TODO time
+    }
 }

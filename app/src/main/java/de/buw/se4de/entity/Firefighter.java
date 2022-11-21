@@ -1,15 +1,18 @@
-package de.buw.se4de;
+package de.buw.se4de.entity;
 
+import de.buw.se4de.gameflow.Handler;
+import de.buw.se4de.ID;
+import de.buw.se4de.Object;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
 public class Firefighter extends Object {
-    Handler handler;//TODO private
-    int health;
-    int firesextinguished;
-    int movementspeed = 6;
-    int level;
+    private Handler handler;
+    private int health;
+    private int firesextinguished;
+    private int movementspeed = 6;
+    private int level;//TODO exp
     public Firefighter(int x, int y, ID id, Handler handler, int hearts) {
         super(x, y, id);
         this.handler = handler;
@@ -23,31 +26,35 @@ public class Firefighter extends Object {
     }
 
     public void tick(int deltatick) {
-        x += (int) speed_x * deltatick;//TODO normalize
+        double mult = movementspeed/Math.sqrt(speed_x*speed_x+speed_y*speed_y);
+        speed_x *= mult;
+        speed_y *= mult;
+
+        x += (int) speed_x * deltatick;
         y += (int) speed_y * deltatick;
 
         collision();
 
         if (handler.isUp()) {
-            speed_y = -movementspeed;
+            speed_y = -1;
         } else if (!handler.isDown()) {
             speed_y = 0;
         }
 
         if (handler.isDown()) {
-            speed_y = movementspeed;
+            speed_y = 1;
         } else if (!handler.isUp()) {
             speed_y = 0;
         }
 
         if (handler.isRight()) {
-            speed_x = movementspeed;
+            speed_x = 1;
         } else if (!handler.isLeft()) {
             speed_x = 0;
         }
 
         if (handler.isLeft()) {
-            speed_x = -movementspeed;
+            speed_x = -1;
         } else if (!handler.isRight()) {
             speed_x = 0;
         }
@@ -55,7 +62,7 @@ public class Firefighter extends Object {
 
     public void draw(@NotNull Graphics g) {
         g.setColor(Color.white);
-        g.fillOval(x, y, 30, 30);
+        g.fillOval(x, y, getSizex(), getSizey());
     }
 
     private void collision() {//TODO wände vlt ändern
@@ -71,28 +78,10 @@ public class Firefighter extends Object {
             }
         }
     }
-
-
-                   /* boolean found_heart = false;
 //TODO hearts shifted to GUI
 //TODO adding missing flame
 //TODO Put borders in one vector(with gui) so that i dont have so many special cases to remember
 
-                    for (int k=0; k < handler.objects.size(); k++){
-                        Object temp2 = handler.objects.get(k);
-
-                        if ((temp2.getId() == ID.Hearts) && (!found_heart)){
-                            handler.objects.removeLastOccurrence(temp2);
-                            found_heart = true;
-                            handler.objects.remove(temp);
-                            //creates a new fire immediately after the last one is dead
-                            int randomX = ThreadLocalRandom.current().nextInt(100, 500);
-                            int randomY = ThreadLocalRandom.current().nextInt(100, 500);
-                            handler.addObject(new Fire (randomX, randomY, (ID.Fire), handler));
-                            --hearts;
-                        }
-                    }
-                }*/
 
     @Override
     public Rectangle getBounds() {
@@ -122,7 +111,7 @@ public class Firefighter extends Object {
 
     public enum power{
         BOUNCE(0,5),PROJECTILE_SPEED(1,30),MORE_PROJECTILES(1,2),PIERCING_PROJECTILE(0,1),
-        EXPLODING_PROJECTILE(0,3),PUDDLE_ON_DEATH(0,1),SHIELD(0,5),ARMOR(0,4),SWEETS(0,4);
+        EXPLODING_PROJECTILE(0,3),PUDDLE_ON_DEATH(0,1),SHIELD(0,5),ARMOR(0,4),SWEETS(0,4),PROJECTILE_DMG(1,100);
         int lvl;
         int maxlvl;
         power(int l,int ml){

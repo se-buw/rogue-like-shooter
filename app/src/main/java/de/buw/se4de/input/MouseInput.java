@@ -1,15 +1,23 @@
-package de.buw.se4de;
+package de.buw.se4de.input;
+
+import de.buw.se4de.ID;
+import de.buw.se4de.entity.Sweets;
+import de.buw.se4de.entity.Water;
+import de.buw.se4de.gameflow.Game;
+import de.buw.se4de.gameflow.Handler;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MouseInput extends MouseAdapter {
 
-    private Handler handler;
+    public Handler handler;
+    Game game;
 
-    public MouseInput(Handler objects)
+    public MouseInput(Handler objects,Game g)
     {
         this.handler = objects;
+        game = g;
     }
 
     @Override
@@ -27,16 +35,15 @@ public class MouseInput extends MouseAdapter {
         }*/
         if(e.getButton() == MouseEvent.BUTTON1) {
             if (handler.game_isrunning)
-                handler.addObject(new Water(handler.player.getX() + 10, handler.player.getY() + 10, ID.Water, x, y, handler));//TODO coming with level up
+                handler.addProjectile(new Water(handler.player.getX(), handler.player.getY(), ID.Water, x, y, handler));//TODO coming with level up
                 //TODO new initialize in Game class that can be called repeatedly
             else if (!handler.game_isrunning) {
-                //if(x<handler.gui.getrestartbutton){
-
-                //}
+                if(handler.gui.getRestartbutton().intersects(x,y,1,1))
+                    game.initialize();
             }
         }else {
             if (handler.game_isrunning){
-                handler.addObject(new Sweets(handler.player.getX() + 10, handler.player.getY() + 10, ID.Water, x, y, handler));//TODO coming with level up
+                handler.addProjectile(new Sweets(handler.player.getX(), handler.player.getY(), ID.Water, x, y, handler));//TODO coming with level up
             }
         }
     }
