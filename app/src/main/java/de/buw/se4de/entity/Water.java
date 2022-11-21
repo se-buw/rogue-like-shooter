@@ -14,7 +14,7 @@ public class Water extends Projectile {
     int speed_multiplier;
 
     public Water(int x, int y, ID id, int dir_x, int dir_y, Handler handler) {
-        super(x, y, id,dir_x,dir_y,handler,5,5);
+        super(x, y, id,dir_x,dir_y,handler,8,8);
         bounce_limit = Firefighter.power.BOUNCE.lvl;
         speed_multiplier = Firefighter.power.PROJECTILE_SPEED.lvl;
         damage=Firefighter.power.PROJECTILE_DMG.lvl;

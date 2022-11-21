@@ -2,6 +2,7 @@ package de.buw.se4de.gameflow;
 
 import de.buw.se4de.*;
 import de.buw.se4de.Frame;
+import de.buw.se4de.entity.Fire;
 import de.buw.se4de.entity.RangedFire;
 import de.buw.se4de.input.KeyInput;
 import de.buw.se4de.input.MouseInput;
@@ -32,8 +33,8 @@ public class Game extends Canvas {
         int randomY = ThreadLocalRandom.current().nextInt(100, 500);
 
 
-//        handler.addObject(new Fire(randomX, randomY, (ID.Enemy), handler));
-        handler.addObject(new RangedFire(300, 300, (ID.Enemy),2,handler,500));
+        handler.addObject(new Fire(randomX, randomY, (ID.Enemy), handler));
+        handler.addObject(new RangedFire(300, 300, (ID.Enemy),2,handler,300));
         //handler.addObject(new RangedFire(400, 400, (ID.Enemy),2,handler,500));
         //handler.addObject(new RangedFire(200, 200, (ID.Enemy),2,handler,500));
 

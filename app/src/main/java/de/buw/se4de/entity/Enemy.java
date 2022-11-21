@@ -35,7 +35,7 @@ public abstract class Enemy extends Object {
         oncooldown-= ((float)deltatick) / 60;
     }//TODO fix attackrange
     public void takedamage(int dmg){
-        health -= dmg;
+        health -= dmg;//TODO dies immidiatly
         if(health<=0){
             kill();
         }
@@ -43,9 +43,8 @@ public abstract class Enemy extends Object {
     public void collision() {
         for (int i = 0; i < handler.objects.size(); i++) {
             Object temp = handler.objects.get(i);
-            if (temp == this||temp.getId() == ID.PROJECTILE) {
+            if (temp == this)
                 continue;
-            }
 
             if (getBounds().intersects(temp.getBounds())) {
                 x += speed_x * -1;
