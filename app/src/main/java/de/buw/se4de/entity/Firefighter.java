@@ -12,13 +12,11 @@ public class Firefighter extends GameObject {
     private int health;
     private int firesextinguished;
     private int movementspeed = 10;//6;
-    private int level;//TODO exp
     public Firefighter(int x, int y, ID id, Handler handler, int hearts) {
         super(x, y, id);
         this.handler = handler;
         this.health = hearts;
         firesextinguished = 0;
-        level = 0;
     }
 
     public int getHealth() {
@@ -65,7 +63,7 @@ public class Firefighter extends GameObject {
         g.fillOval(x, y, getSizex(), getSizey());
     }
 
-    private void collision() {//TODO wände vlt ändern
+    private void collision() {//TODO rechte wand verschieben
         if (getBounds().intersects(handler.gui.getBounds())) {
             x += speed_x * -1;
             y += speed_y * -1;
@@ -78,18 +76,12 @@ public class Firefighter extends GameObject {
             }
         }
     }
-//TODO hearts shifted to GUI
-//TODO adding missing flame
-//TODO Put borders in one vector(with gui) so that i dont have so many special cases to remember
-
-
     @Override
     public Rectangle getBounds() {
        return new Rectangle(x, y, 30, 30);
     }
     private void levelup(){
-        System.out.println("LEVELED UP");//TODO powers regulated(1 of 3 random powers to choose from)
-        ++level;
+        //TODO powers regulated(1 of 3 random powers to choose from)
         ++power.BOUNCE.lvl;
         ++power.PROJECTILE_SPEED.lvl;
         ++power.PIERCING_PROJECTILE.lvl;
@@ -99,14 +91,12 @@ public class Firefighter extends GameObject {
     }
     public void setFiresextinguished(){
         ++firesextinguished;
-        if(firesextinguished % 5 == 0)
+        if(firesextinguished % 10 == 0)
             levelup();
     }
 
     public void takedamage(int attackdamage) {
         health-=attackdamage;
-        if(health <= 0)
-            System.out.println("DEAD");//TODO death method
     }
 
     public enum power{
@@ -114,7 +104,7 @@ public class Firefighter extends GameObject {
         EXPLODING_PROJECTILE(0,3),PUDDLE_ON_DEATH(0,1),SHIELD(0,5),ARMOR(0,4),SWEETS(0,4),PROJECTILE_DMG(1,100);
         int lvl;
         int maxlvl;
-        power(int l,int ml){
+        power(int l,int ml){//TODO THIS
             lvl = l;
             maxlvl=ml;
         }

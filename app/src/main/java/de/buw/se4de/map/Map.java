@@ -8,7 +8,7 @@ import de.buw.se4de.ID;
 public class Map {
     public Vector<Wall> vwall;
     public Vector<Spawnarea> vspawn;
-    public Map(){//TODO take string as arg
+    public Map(){//TODO a few maps
         vwall = new Vector<>();
         vspawn = new Vector<>();
     }
@@ -41,11 +41,11 @@ public class Map {
             String[] arrays = sline.split(" ");
             for(String s: arrays){
                 if (s.equals("1")) {
-                    Wall temp = new Wall(x, y, ID.Wall); //TODO new id
+                    Wall temp = new Wall(x, y, ID.Wall);
                     vwall.add(temp);
                 }
                 if (s.equals("2")){
-                    Spawnarea temp = new Spawnarea(x, y, ID.SPAWN); //TODO new id
+                    Spawnarea temp = new Spawnarea(x, y, ID.SPAWN);
                     vspawn.add(temp);
                 }
                 x += 30;

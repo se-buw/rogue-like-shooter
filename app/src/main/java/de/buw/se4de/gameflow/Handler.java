@@ -10,46 +10,57 @@ import de.buw.se4de.map.Map;
 import de.buw.se4de.map.Spawnarea;
 
 import java.awt.*;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
 
 public class Handler {
     //used to manage all objects we have in the game
-    public LinkedList<GameObject> gameObjects = new LinkedList<GameObject>();//TODO private
-    public LinkedList<Projectile> projectiles = new LinkedList<Projectile>();//TODO better container
+    public LinkedList<GameObject> gameObjects = new LinkedList<GameObject>();
+    public LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
     private boolean up = false, down = false, right = false, left = false;
-    public int wave=0;
-    public GUI gui;//TODO gui private
+    public Wave wave = new Wave(this);
+    public GUI gui;
     public boolean game_isrunning = false;
     public Firefighter player = new Firefighter(50, 50, ID.Player, this,4);
-    Vector<Spawnarea> Spawn;
+
+    Vector<Spawnarea> Spawn = new Vector<>();
 
 
     public void tick(int deltatick){
         player.tick(deltatick);
-        for(Iterator<GameObject> iterator = gameObjects.iterator(); iterator.hasNext();) {//TODO renew all loops //changed loops so we dont skip shit
+        boolean spawnnewwave=false;
+        for(Iterator<GameObject> iterator = gameObjects.iterator(); iterator.hasNext();) {
             GameObject ob = iterator.next();
             ob.tick(deltatick);
-            if(!ob.alive)
+            if(!ob.alive) {
+                spawnnewwave = wave.onkill();
                 iterator.remove();
+            }
         }
-
-        for(Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {//TODO renew all loops //changed loops so we dont skip shit
+        for(Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
             Projectile p = iterator.next();
             p.tick(deltatick);
             if(!p.alive)
                 iterator.remove();
         }
+        wave.tick(deltatick);
+        if(spawnnewwave)
+            wave.newwave();
     }
 
     public void draw(Graphics g) {
         for (Spawnarea s: Spawn)
             s.draw(g);
-        for (GameObject ob : gameObjects)//TODO renew all loops //changed loops so we dont skip shit
-            ob.draw(g);
-        for (Projectile p : projectiles)//TODO renew all loops //changed loops so we dont skip shit
-            p.draw(g);
+        try {
+            for (GameObject ob : gameObjects)
+                ob.draw(g);
+        }catch (ConcurrentModificationException ignored){}
+        try {
+            for (Projectile p : projectiles)
+                p.draw(g);
+        }catch (ConcurrentModificationException ignored){}
         player.draw(g);
         gui.draw(g);
     }
@@ -105,24 +116,18 @@ public class Handler {
         gameObjects.clear();
         projectiles.clear();
         up = false; down = false; right = false; left = false;
-        wave = 0;
         player = new Firefighter(50, 50, ID.Player, this,4);
         gui = new GUI(0,0,ID.GUI,player);
+        wave.setWave(0);
     }
-    private void newwave(){
-        ++wave;
 
-    }
     public void changemap(Map m) {
         clear();
         if(m.vwall != null) {
             gameObjects.addAll(m.vwall);
         }
-        Spawn = new Vector<>();
         Spawn.addAll(m.vspawn);
+        wave.changespawn(m.vspawn);
     }
 
-    public void Spawn(int wave){
-
-    }
 }

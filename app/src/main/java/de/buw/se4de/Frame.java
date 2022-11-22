@@ -2,7 +2,7 @@ package de.buw.se4de;
 
 import java.awt.*;
 
-public class Frame extends GameObject {//TODO into GUI
+public class Frame extends GameObject {
 
     int width, length;
 
@@ -23,5 +23,5 @@ public class Frame extends GameObject {//TODO into GUI
     @Override
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, length);
-    }//TODO use this as walls(smaller)
+    }
 }

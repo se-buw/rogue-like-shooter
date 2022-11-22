@@ -31,15 +31,13 @@ public class Water extends Projectile {
                 if(temp.getId() == ID.Wall) {
                     speed_x = speed_x * -1;
                     speed_y = speed_y * -1;
-                    if(++bounce > bounce_limit)//TODO reflection(maybe)
+                    if(++bounce > bounce_limit)//TODO reflection(maybe)?
                         kill();
                 }
                 else if (temp.getId() == ID.Enemy){
                     //if(Firefighter.power.PIERCING_PROJECTILE.lvl == 0)
                     kill();
                     ((Enemy)temp).takedamage(damage);
-                    System.out.println("DMG from: " + this);
-                    //TODO Waves in game?
                 }
             }
         }

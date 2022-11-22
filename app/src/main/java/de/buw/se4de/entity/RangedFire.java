@@ -7,20 +7,13 @@ import java.awt.*;
 
 public class RangedFire extends Enemy{
     double distance=0;
-    public RangedFire(int x, int y, ID id, int hp, Handler h, int ar) {
-        super(x, y, id, hp, h, ar);
+    public RangedFire(int x, int y, Handler h) {
+        super(x, y, ID.Enemy, 2, h, 250);
         oncooldown = 2.0f;
     }
 
     @Override
     public void draw(Graphics g) {
-        /*g.setColor(Color.YELLOW);
-        if(distance <= attackrange)
-            g.setColor(Color.RED);
-        g.drawOval(getX()-attackrange,getY()-attackrange,this.attackrange*2,this.attackrange*2);
-        g.setColor(Color.green);
-        g.drawLine(getX(),getY(),handler.player.getX(),handler.player.getY());
-        g.drawOval((int)(getX()-distance),(int)(getY()-distance),(int)distance*2,(int)distance*2);*/
         if(!friendly)
             g.setColor(Color.orange);
         else

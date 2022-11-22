@@ -2,7 +2,7 @@ package de.buw.se4de;
 
 import java.awt.*;
 
-public abstract class GameObject {//TODO entety class
+public abstract class GameObject {
     protected int x,y;
     int sizex = 30;
     int sizey = 30;
@@ -53,7 +53,7 @@ public abstract class GameObject {//TODO entety class
     }
 
     //get bounding rectangle for the collision system
-    public abstract Rectangle getBounds();//TODO kreisklasse
+    public abstract Rectangle getBounds();
 
     public int getSizex() {
         return sizex;

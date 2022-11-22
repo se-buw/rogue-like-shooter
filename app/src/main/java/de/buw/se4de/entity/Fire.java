@@ -11,8 +11,8 @@ public class Fire extends Enemy {
     Random r = new Random();
     float upperbound = 1.0f;
 
-    public Fire(int x, int y, ID id, Handler handler) {
-        super(x, y, id,1,handler,30);
+    public Fire(int x, int y, Handler handler) {
+        super(x, y, ID.Enemy,1,handler,30);
         movementspeed = 2;
         attackdamage = 1;
         health=2;

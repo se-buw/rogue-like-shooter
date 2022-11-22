@@ -4,7 +4,7 @@ import de.buw.se4de.entity.Firefighter;
 
 import java.awt.*;
 
-public class GUI extends GameObject {//TODO add frame
+public class GUI extends GameObject {
 
     int width=1200;
     int height=30;

@@ -16,14 +16,31 @@ public abstract class Enemy extends GameObject {
     protected float oncooldown;
 
     protected Handler handler;
-    protected boolean inrange=false;
+    protected boolean inrange = false;
 
     public Enemy(int x, int y, ID id, int hp, Handler h, int ar) {
         super(x, y, id);
         health = hp;
         attackrange = ar;
         handler = h;
+        boolean respawn=false;
+        if(!respawn())
+            handler.wave.tospawn(this);
+
     }
+
+    public boolean respawn() {
+        for(GameObject go :handler.gameObjects) {
+            if (go.getId() == ID.Enemy) {
+                if (go.getBounds().intersects(this.getBounds())) {
+                    return false;
+                }
+            }
+        }
+        handler.addObject(this);
+        return true;
+    }
+
     public Enemy(int x, int y,int width,int height, ID id, int hp, Handler h, int ar) {
         super(x, y,width,height, id);
         health = hp;
@@ -31,7 +48,7 @@ public abstract class Enemy extends GameObject {
         handler = h;
     }
     @Override
-    public void tick(int deltatick) {//TODO RESPAWN!!
+    public void tick(int deltatick) {
         if(!friendly) {
             if (Math.sqrt(Math.pow(handler.player.getX() - getX(), 2) + Math.pow(handler.player.getY() - getY(), 2)) <= attackrange + handler.player.getSizex()/2.0) {
                 inrange = true;
@@ -49,9 +66,14 @@ public abstract class Enemy extends GameObject {
                 y += (int)speed_y * deltatick;
             }
         }
+
         collision();
+        if(x < 0 || y < 0) {//Todo DONT kill just guide them onto the righteous path
+            System.out.println(x + ", " + y);
+            kill();
+        }
         oncooldown-= ((float)deltatick) / 60;
-    }//TODO fix attackrange
+    }
     public void takedamage(int dmg){
         health -= dmg;
         if(health<=0){
@@ -59,17 +81,19 @@ public abstract class Enemy extends GameObject {
         }
     }
     public void collision() {
+        boolean collided = true;
         for (int i = 0; i < handler.gameObjects.size(); i++) {
             GameObject temp = handler.gameObjects.get(i);
-            if (temp == this)
+            if (temp == this/*||temp.getId()==ID.Enemy*/)
                 continue;
-
             if (getBounds().intersects(temp.getBounds())) {
                 x += speed_x * -1;
                 y += speed_y * -1;
+                break;
             }
+
         }
-        if(getBounds().intersects(handler.player.getBounds())){
+        if((getBounds().intersects(handler.gui.getBounds())||getBounds().intersects(handler.player.getBounds()))){
             x += speed_x * -1;
             y += speed_y * -1;
         }
@@ -78,10 +102,9 @@ public abstract class Enemy extends GameObject {
      public void kill() {
          handler.player.setFiresextinguished();
          super.kill();
-     };//TODO killed
+     }
     public void attack(){
         if(oncooldown <= 0.0f) {
-            System.out.println("DIEEE!");
             oncooldown = cooldown;
             handler.player.takedamage(attackdamage);
         }

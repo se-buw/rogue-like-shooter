@@ -32,17 +32,7 @@ public class Game extends Canvas {
         Map m = new Map();
         m.getMap("0");
         handler.changemap(m);
-        // create the first fire
-        int randomX = ThreadLocalRandom.current().nextInt(100, 500);//TODO change spawn mechanism
-        int randomY = ThreadLocalRandom.current().nextInt(100, 500);
-
-
-        handler.addObject(new Fire(randomX, randomY, (ID.Enemy), handler));
-        handler.addObject(new RangedFire(300, 300, (ID.Enemy),2,handler,300));
-        //handler.addObject(new RangedFire(400, 400, (ID.Enemy),2,handler,500));
-        //handler.addObject(new RangedFire(200, 200, (ID.Enemy),2,handler,500));
-
-
+        handler.wave.newwave();
         //create a frame
         handler.addObject(new Frame(0, 0, ID.Wall, 2, height)); // left
         handler.addObject(new Frame(width - 20 , 0, ID.Wall, 2, height)); // right
@@ -110,14 +100,12 @@ public class Game extends Canvas {
         handler.draw(g);
 
         //make Player freeze and call "Game over" when there are no hearts left
-        if(handler.player.getHealth() == 0){//TODO irgendwo anders //TODO irgendwann anders Respawn
+        if(handler.player.getHealth() == 0){//TODO irgendwann anders Replay
             handler.draw(g);
             handler.gui.DrawDeathScreen(g);
             for(int i=0;i<3;++i)
                 bs.show();
             handler.game_isrunning = false;
-            //handler.player.setSpeed_x(0.0f);
-            //handler.player.setSpeed_y(0.0f);
         }
 
         g.dispose();
