@@ -2,20 +2,17 @@ package de.buw.se4de.gameflow;
 
 import de.buw.se4de.*;
 import de.buw.se4de.Frame;
-import de.buw.se4de.entity.Fire;
-import de.buw.se4de.entity.RangedFire;
 import de.buw.se4de.input.KeyInput;
 import de.buw.se4de.input.MouseInput;
 import de.buw.se4de.map.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Game extends Canvas {
     int width=1200;
     int height=800;
-    private Handler handler;
+    private final Handler handler;
 
     public Game() {
 

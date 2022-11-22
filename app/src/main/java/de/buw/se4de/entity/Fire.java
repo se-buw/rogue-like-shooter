@@ -4,12 +4,8 @@ import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.ID;
 
 import java.awt.*;
-import java.util.Random;
 
 public class Fire extends Enemy {
-
-    Random r = new Random();
-    float upperbound = 1.0f;
 
     public Fire(int x, int y, Handler handler) {
         super(x, y, ID.Enemy,1,handler,30);
@@ -21,8 +17,6 @@ public class Fire extends Enemy {
     public void setFriendly(boolean f){
         friendly = true;
     }
-    public boolean getFriendly(){return friendly;}
-
     @Override
     public void draw(Graphics g) {
         if(!friendly)

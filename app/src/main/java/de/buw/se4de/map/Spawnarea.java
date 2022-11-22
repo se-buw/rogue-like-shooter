@@ -1,6 +1,5 @@
 package de.buw.se4de.map;
 
-import de.buw.se4de.GameObject;
 import de.buw.se4de.ID;
 
 import java.awt.*;

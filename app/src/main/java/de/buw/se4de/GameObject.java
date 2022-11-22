@@ -36,14 +36,6 @@ public abstract class GameObject {
         return y + sizey/2;
     }
 
-    public void setSpeed_x(float speed_x) {
-        this.speed_x = speed_x;
-    }
-
-    public void setSpeed_y(float speed_y) {
-        this.speed_y = speed_y;
-    }
-
     public ID getId() {
         return id;
     }

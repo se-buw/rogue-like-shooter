@@ -17,8 +17,8 @@ import java.util.Vector;
 
 public class Handler {
     //used to manage all objects we have in the game
-    public LinkedList<GameObject> gameObjects = new LinkedList<GameObject>();
-    public LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
+    public LinkedList<GameObject> gameObjects = new LinkedList<>();
+    public LinkedList<Projectile> projectiles = new LinkedList<>();
     private boolean up = false, down = false, right = false, left = false;
     public Wave wave = new Wave(this);
     public GUI gui;
@@ -109,9 +109,6 @@ public class Handler {
         projectiles.add(p);
     }
 
-    public void removeProjectile(Projectile p){
-        projectiles.remove(p);
-    }
     public void clear(){
         gameObjects.clear();
         projectiles.clear();

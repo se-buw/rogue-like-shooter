@@ -25,18 +25,10 @@ public class MouseInput extends MouseAdapter {
         int x = e.getX();
         int y = e.getY();
 
-        /*
-        for(int i = 0; i < handler.objects.size(); i++){//give player vector to handler
-            Object temp = handler.objects.get(i);
-
-            if (temp.getId() == ID.Player){
-                handler.addObject(new Water(temp.getX()+10, temp.getY() + 10, ID.Water, x, y, handler));
-            }
-        }*/
         if(e.getButton() == MouseEvent.BUTTON1) {
             if (handler.game_isrunning)
                 new Water(handler.player.getX(), handler.player.getY(), ID.Water, x, y, handler);
-            else if (!handler.game_isrunning) {
+            else{
                 if(handler.gui.getRestartbutton().intersects(x,y,1,1))
                     game.initialize();
             }

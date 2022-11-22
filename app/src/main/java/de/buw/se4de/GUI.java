@@ -13,8 +13,6 @@ public class GUI extends GameObject {
     public GUI(int x, int y, ID id,Firefighter p) {
         super(x, y, id);
         player = p;
-        int hearts_x = 0;
-        int hp = player.getHealth();//changed:added player to handler so one doesnt have to iterate over complete list everytime
         restartbutton = new Rectangle(490,450,230,70);
     }
 
@@ -45,7 +43,7 @@ public class GUI extends GameObject {
         g.setColor(Color.yellow);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 100));
         g.drawString("Game Over", 380, 400);
-        g.setFont(new Font("TimesRoman", Font.TYPE1_FONT, 60));
+        g.setFont(new Font("TimesRoman", Font.BOLD, 60));
         g.drawString("Restart!",500,500);
         g.drawRect(restartbutton.x, restartbutton.y, restartbutton.width, restartbutton.height);
     }

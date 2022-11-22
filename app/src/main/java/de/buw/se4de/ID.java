@@ -6,7 +6,6 @@ public enum ID {
     Enemy,
     Water,
     Wall,
-    Hearts,
     GUI,
     PROJECTILE,
     SPAWN

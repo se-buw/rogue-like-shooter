@@ -6,7 +6,6 @@ import de.buw.se4de.gameflow.Handler;
 import java.awt.*;
 
 public class RangedFire extends Enemy{
-    double distance=0;
     public RangedFire(int x, int y, Handler h) {
         super(x, y, ID.Enemy, 2, h, 250);
         oncooldown = 2.0f;
@@ -31,7 +30,7 @@ public class RangedFire extends Enemy{
     public void attack(){
         if(oncooldown <= 0.0f) {
             oncooldown = cooldown;
-            Fireball fb = new Fireball(getX(),getY(),ID.PROJECTILE,handler.player.getX(),handler.player.getY(),handler,1);
+            new Fireball(getX(),getY(),ID.PROJECTILE,handler.player.getX(),handler.player.getY(),handler,1);
         }
     }
 }

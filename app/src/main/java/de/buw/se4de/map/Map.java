@@ -16,7 +16,7 @@ public class Map {
     private Vector<String> readmap(String s) {
         Vector<String> vline = new Vector<>();
         BufferedReader reader;
-        String line = "";
+        String line;
         try {
             reader = new BufferedReader(new FileReader("app/src/main/resources/map_" + s));
             line = reader.readLine();
@@ -33,7 +33,7 @@ public class Map {
         return vline;
     }
     public void getMap(String mapname){
-        Vector<String> vline = new Vector<>();
+        Vector<String> vline;
         vline = readmap(mapname);
         int x = 0;
         int y = 30;

@@ -4,7 +4,6 @@ import de.buw.se4de.entity.*;
 import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.map.Spawnarea;
 
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
 
@@ -27,8 +26,6 @@ public class Wave {
         wave = 0;
     }
     public void choosewave(){
-        Vector<Enemy> vwave = new Vector<Enemy>();
-
         switch (wave) {
             case 0 -> {
                 for(int i = 0; i<= 0; ++i){
@@ -88,7 +85,7 @@ public class Wave {
         if(vtospawn.size() > 0){
             vtospawn.removeIf(Enemy::respawn);
         }
-        oncooldown-= ((float)deltatick) / 60;
+        oncooldown-= (deltatick) / 60;
         if(oncooldown <= 0.0f && ready) {
             choosewave();
             ready = false;

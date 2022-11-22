@@ -23,7 +23,6 @@ public abstract class Enemy extends GameObject {
         health = hp;
         attackrange = ar;
         handler = h;
-        boolean respawn=false;
         if(!respawn())
             handler.wave.tospawn(this);
 
@@ -41,12 +40,6 @@ public abstract class Enemy extends GameObject {
         return true;
     }
 
-    public Enemy(int x, int y,int width,int height, ID id, int hp, Handler h, int ar) {
-        super(x, y,width,height, id);
-        health = hp;
-        attackrange = ar;
-        handler = h;
-    }
     @Override
     public void tick(int deltatick) {
         if(!friendly) {
@@ -81,7 +74,6 @@ public abstract class Enemy extends GameObject {
         }
     }
     public void collision() {
-        boolean collided = true;
         for (int i = 0; i < handler.gameObjects.size(); i++) {
             GameObject temp = handler.gameObjects.get(i);
             if (temp == this/*||temp.getId()==ID.Enemy*/)

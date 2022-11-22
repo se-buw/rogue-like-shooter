@@ -8,10 +8,10 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 
 public class Firefighter extends GameObject {
-    private Handler handler;
+    final private Handler handler;
     private int health;
     private int firesextinguished;
-    private int movementspeed = 10;//6;
+    private final int movementspeed = 6;
     public Firefighter(int x, int y, ID id, Handler handler, int hearts) {
         super(x, y, id);
         this.handler = handler;
@@ -103,7 +103,7 @@ public class Firefighter extends GameObject {
         BOUNCE(0,5),PROJECTILE_SPEED(1,30),MORE_PROJECTILES(1,2),PIERCING_PROJECTILE(0,1),
         EXPLODING_PROJECTILE(0,3),PUDDLE_ON_DEATH(0,1),SHIELD(0,5),ARMOR(0,4),SWEETS(0,4),PROJECTILE_DMG(1,100);
         int lvl;
-        int maxlvl;
+        final int maxlvl;
         power(int l,int ml){//TODO THIS
             lvl = l;
             maxlvl=ml;

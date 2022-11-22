@@ -17,9 +17,4 @@ public class Window {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-
-	public void showrestart(){
-
-	}
-
 }

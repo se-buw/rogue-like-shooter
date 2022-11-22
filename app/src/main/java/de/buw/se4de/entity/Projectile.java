@@ -7,8 +7,6 @@ import de.buw.se4de.GameObject;
 import java.awt.*;
 public abstract class Projectile extends GameObject {
     Handler handler;
-    int bounce;
-    int bounce_limit;
     int damage;
     int speed_multiplier;
     public Projectile(int x, int y, ID id, int dir_x, int dir_y, Handler handler) {
@@ -24,11 +22,8 @@ public abstract class Projectile extends GameObject {
         handler.addProjectile(this);
     }
     public void calculateSpeed(int fromX, int fromY, int toX, int toY) {
-        double distance = Math.sqrt(Math.pow((toX - fromX), 2) + Math.pow((toY - fromY), 2));
         double speed = 7;
-
         double mult = speed/Math.sqrt((toY - fromY)*(toY - fromY) + (toX - fromX)*(toX - fromX));
-
         this.speed_y = (float)((toY - fromY)*mult);
         this.speed_x = (float)((toX - fromX)*mult);
     }
