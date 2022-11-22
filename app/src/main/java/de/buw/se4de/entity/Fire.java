@@ -12,32 +12,10 @@ public class Fire extends Enemy {
     float upperbound = 1.0f;
 
     public Fire(int x, int y, ID id, Handler handler) {
-        super(x, y, id,1,handler,50);
+        super(x, y, id,1,handler,30);
         movementspeed = 2;
-        attackrange = 90;
         attackdamage = 1;
-        health=200000;
-    }
-
-    @Override
-    public void tick(int deltatick) {
-        if(!friendly) {
-            speed_x = (handler.player.getX() - getX());
-            speed_y = (handler.player.getY() - getY());
-        }else {
-            //TODO fiend other flame/or other ideas
-        }
-        double mult = movementspeed/Math.sqrt(speed_x*speed_x+speed_y*speed_y);
-
-        speed_x *= mult;
-        speed_y *= mult;
-
-        x += (int)speed_x * deltatick;
-        y += (int)speed_y * deltatick;
-
-        super.tick(deltatick);
-
-        collision();
+        health=2;
     }
     @Override
     public void setFriendly(boolean f){
@@ -47,14 +25,13 @@ public class Fire extends Enemy {
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.YELLOW);
-        g.drawOval(getX()-(attackrange/2),getY()-(attackrange/2),this.attackrange,this.attackrange);
         if(!friendly)
             g.setColor(Color.red);
         else
             g.setColor(Color.GREEN);
 
         g.fillRect(x, y, 30, 30);
+        super.drawrange(g);
     }
 
     @Override

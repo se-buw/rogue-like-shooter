@@ -35,7 +35,7 @@ public class MouseInput extends MouseAdapter {
         }*/
         if(e.getButton() == MouseEvent.BUTTON1) {
             if (handler.game_isrunning)
-                handler.addProjectile(new Water(handler.player.getX(), handler.player.getY(), ID.Water, x, y, handler));//TODO coming with level up
+                new Water(handler.player.getX(), handler.player.getY(), ID.Water, x, y, handler);//TODO coming with level up
                 //TODO new initialize in Game class that can be called repeatedly
             else if (!handler.game_isrunning) {
                 if(handler.gui.getRestartbutton().intersects(x,y,1,1))
@@ -43,7 +43,7 @@ public class MouseInput extends MouseAdapter {
             }
         }else {
             if (handler.game_isrunning){
-                handler.addProjectile(new Sweets(handler.player.getX(), handler.player.getY(), ID.Water, x, y, handler));//TODO coming with level up
+                new Sweets(handler.player.getX(), handler.player.getY(), ID.Water, x, y, handler);//TODO coming with level up
             }
         }
     }

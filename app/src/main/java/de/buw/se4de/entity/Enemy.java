@@ -2,9 +2,11 @@ package de.buw.se4de.entity;
 
 import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.ID;
-import de.buw.se4de.Object;
+import de.buw.se4de.GameObject;
 
-public abstract class Enemy extends Object {
+import java.awt.*;
+
+public abstract class Enemy extends GameObject {
     boolean friendly=false;
     protected int health;
     protected int attackrange;
@@ -14,6 +16,7 @@ public abstract class Enemy extends Object {
     protected float oncooldown;
 
     protected Handler handler;
+    protected boolean inrange=false;
 
     public Enemy(int x, int y, ID id, int hp, Handler h, int ar) {
         super(x, y, id);
@@ -28,21 +31,36 @@ public abstract class Enemy extends Object {
         handler = h;
     }
     @Override
-    public void tick(int deltatick) {
-        if(Math.sqrt(Math.pow(handler.player.getX() - (getX()-attackrange/2),2) + Math.pow(handler.player.getY()-getY(),2)) <= attackrange){
-            attack();
+    public void tick(int deltatick) {//TODO RESPAWN!!
+        if(!friendly) {
+            if (Math.sqrt(Math.pow(handler.player.getX() - getX(), 2) + Math.pow(handler.player.getY() - getY(), 2)) <= attackrange + handler.player.getSizex()/2.0) {
+                inrange = true;
+                attack();
+            } else {
+                inrange = false;
+                speed_x = (handler.player.getX() - getX());
+                speed_y = (handler.player.getY() - getY());
+                double mult = movementspeed/Math.sqrt(speed_x*speed_x+speed_y*speed_y);
+
+                speed_x *= mult;
+                speed_y *= mult;
+
+                x += (int)speed_x * deltatick;
+                y += (int)speed_y * deltatick;
+            }
         }
+        collision();
         oncooldown-= ((float)deltatick) / 60;
     }//TODO fix attackrange
     public void takedamage(int dmg){
-        health -= dmg;//TODO dies immidiatly
+        health -= dmg;
         if(health<=0){
             kill();
         }
     }
     public void collision() {
-        for (int i = 0; i < handler.objects.size(); i++) {
-            Object temp = handler.objects.get(i);
+        for (int i = 0; i < handler.gameObjects.size(); i++) {
+            GameObject temp = handler.gameObjects.get(i);
             if (temp == this)
                 continue;
 
@@ -67,6 +85,12 @@ public abstract class Enemy extends Object {
             oncooldown = cooldown;
             handler.player.takedamage(attackdamage);
         }
+    }
+    void drawrange(Graphics g){
+        g.setColor(Color.YELLOW);
+        if(inrange)
+            g.setColor(Color.RED);
+        g.drawOval(getX()-attackrange,getY()-attackrange,this.attackrange*2,this.attackrange*2);
     }
 
 }

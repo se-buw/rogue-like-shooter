@@ -2,7 +2,7 @@ package de.buw.se4de;
 
 import java.awt.*;
 
-public abstract class Object {//TODO entety class
+public abstract class GameObject {//TODO entety class
     protected int x,y;
     int sizex = 30;
     int sizey = 30;
@@ -10,12 +10,12 @@ public abstract class Object {//TODO entety class
     protected ID id;
     public boolean alive=true;
 
-    public Object (int x, int y, ID id){
+    public GameObject(int x, int y, ID id){
         this.x = x;
         this.y = y;
         this.id = id;
     }
-    public Object (int x, int y,int w,int h, ID id){
+    public GameObject(int x, int y, int w, int h, ID id){
         this.x = x;
         this.y = y;
         this.id = id;

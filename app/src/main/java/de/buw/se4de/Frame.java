@@ -2,7 +2,7 @@ package de.buw.se4de;
 
 import java.awt.*;
 
-public class Frame extends Object{//TODO into GUI
+public class Frame extends GameObject {//TODO into GUI
 
     int width, length;
 

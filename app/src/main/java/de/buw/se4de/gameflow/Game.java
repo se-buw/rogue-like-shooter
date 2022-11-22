@@ -6,6 +6,7 @@ import de.buw.se4de.entity.Fire;
 import de.buw.se4de.entity.RangedFire;
 import de.buw.se4de.input.KeyInput;
 import de.buw.se4de.input.MouseInput;
+import de.buw.se4de.map.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -28,6 +29,9 @@ public class Game extends Canvas {
     }
     public void initialize(){
         handler.clear();
+        Map m = new Map();
+        m.getMap("0");
+        handler.changemap(m);
         // create the first fire
         int randomX = ThreadLocalRandom.current().nextInt(100, 500);//TODO change spawn mechanism
         int randomY = ThreadLocalRandom.current().nextInt(100, 500);
@@ -40,10 +44,10 @@ public class Game extends Canvas {
 
 
         //create a frame
-        handler.addObject(new Frame(0, 0, ID.Frame, 2, height)); // left
-        handler.addObject(new Frame(width - 20 , 0, ID.Frame, 2, height)); // right
-        handler.addObject(new Frame(0, 0, ID.Frame, width, 2)); // top
-        handler.addObject(new Frame(0, height - 40, ID.Frame, width, 2)); // bottom
+        handler.addObject(new Frame(0, 0, ID.Wall, 2, height)); // left
+        handler.addObject(new Frame(width - 20 , 0, ID.Wall, 2, height)); // right
+        handler.addObject(new Frame(0, 0, ID.Wall, width, 2)); // top
+        handler.addObject(new Frame(0, height - 40, ID.Wall, width, 2)); // bottom
 
         //Create UI
         handler.addGUI(new GUI(0,0,ID.GUI,handler.player));

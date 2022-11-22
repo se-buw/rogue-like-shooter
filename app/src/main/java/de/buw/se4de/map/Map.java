@@ -1,27 +1,26 @@
 package de.buw.se4de.map;
 
-import java.awt.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
 import java.util.Vector;
 
 import de.buw.se4de.ID;
-import de.buw.se4de.Object;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
+
 public class Map {
-    Vector<String> vline = new Vector<>();
-    private void readmap() {
+    public Vector<Wall> vwall;
+    public Vector<Spawnarea> vspawn;
+    public Map(){//TODO take string as arg
+        vwall = new Vector<>();
+        vspawn = new Vector<>();
+    }
+
+    private Vector<String> readmap(String s) {
+        Vector<String> vline = new Vector<>();
         BufferedReader reader;
         String line = "";
         try {
-            reader = new BufferedReader(new FileReader("app/src/main/resources/book"));
+            reader = new BufferedReader(new FileReader("app/src/main/resources/map_" + s));
             line = reader.readLine();
             while (line != null) {
-                System.out.println(line);
                 // read next line
                 line = reader.readLine();
                 vline.add(line);
@@ -30,22 +29,29 @@ public class Map {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        vline.remove(vline.size()-1);
+        return vline;
     }
-    public Vector<Object> getMap(){
-        Vector<Object> vwall = new Vector<>();
+    public void getMap(String mapname){
+        Vector<String> vline = new Vector<>();
+        vline = readmap(mapname);
         int x = 0;
-        int y = 0;
+        int y = 30;
         for (String sline: vline){
-            String[] arrays = sline.split("");
+            String[] arrays = sline.split(" ");
             for(String s: arrays){
-                if (s == "1") {
-                    Wall temp = new Wall(x, y, ID.Frame); //TODO new id
+                if (s.equals("1")) {
+                    Wall temp = new Wall(x, y, ID.Wall); //TODO new id
                     vwall.add(temp);
                 }
-                y += 36;
+                if (s.equals("2")){
+                    Spawnarea temp = new Spawnarea(x, y, ID.SPAWN); //TODO new id
+                    vspawn.add(temp);
+                }
+                x += 30;
             }
-            x += 40;
+            y += 30;
+            x = 0;
         }
-        return vwall;
     }
 }

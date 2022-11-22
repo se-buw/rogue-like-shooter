@@ -2,10 +2,10 @@ package de.buw.se4de.entity;
 
 import de.buw.se4de.ID;
 import de.buw.se4de.gameflow.Handler;
-import de.buw.se4de.Object;
+import de.buw.se4de.GameObject;
 
 import java.awt.*;
-public abstract class Projectile extends Object{
+public abstract class Projectile extends GameObject {
     Handler handler;
     int bounce;
     int bounce_limit;

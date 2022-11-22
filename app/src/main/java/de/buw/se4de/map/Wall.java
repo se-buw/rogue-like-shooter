@@ -1,14 +1,14 @@
 package de.buw.se4de.map;
 
 import de.buw.se4de.ID;
-import de.buw.se4de.Object;
+import de.buw.se4de.GameObject;
 
 import java.awt.*;
 
-public class Wall extends Object {
+public class Wall extends GameObject {
 
     public Wall(int x, int y, ID id) {
-        super(x, y, 40, 36, id);
+        super(x, y, 30, 30, id);
     }
 
     @Override
@@ -18,12 +18,12 @@ public class Wall extends Object {
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.MAGENTA);
-
+        g.setColor(new Color(50,100,50));
+        g.fillRect(x,y,getSizex(),getSizey());
     }
 
     @Override
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle(x,y,getSizex(),getSizey());
     }
 }

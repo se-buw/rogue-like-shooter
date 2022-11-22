@@ -2,16 +2,16 @@ package de.buw.se4de.entity;
 
 import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.ID;
-import de.buw.se4de.Object;
+import de.buw.se4de.GameObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class Firefighter extends Object {
+public class Firefighter extends GameObject {
     private Handler handler;
     private int health;
     private int firesextinguished;
-    private int movementspeed = 6;
+    private int movementspeed = 10;//6;
     private int level;//TODO exp
     public Firefighter(int x, int y, ID id, Handler handler, int hearts) {
         super(x, y, id);
@@ -70,8 +70,8 @@ public class Firefighter extends Object {
             x += speed_x * -1;
             y += speed_y * -1;
         }
-        for (int i = 0; i < handler.objects.size(); i++) {
-            Object temp = handler.objects.get(i);
+        for (int i = 0; i < handler.gameObjects.size(); i++) {
+            GameObject temp = handler.gameObjects.get(i);
             if (getBounds().intersects(temp.getBounds())) {
                 x += speed_x * -1;
                 y += speed_y * -1;

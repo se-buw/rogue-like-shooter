@@ -2,7 +2,7 @@ package de.buw.se4de.entity;
 
 import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.ID;
-import de.buw.se4de.Object;
+import de.buw.se4de.GameObject;
 
 import java.awt.*;
 
@@ -12,10 +12,10 @@ public class Sweets extends Projectile {
     }
     @Override
     protected void collision() {
-        for (int i=0; i < handler.objects.size(); i++) {
-            Object temp = handler.objects.get(i);
+        for (int i = 0; i < handler.gameObjects.size(); i++) {
+            GameObject temp = handler.gameObjects.get(i);
             if (getBounds().intersects(temp.getBounds())) {
-                if (temp.getId() == ID.Frame) {
+                if (temp.getId() == ID.Wall) {
                     kill();
                 }
                 if (temp.getId() == ID.Enemy) {

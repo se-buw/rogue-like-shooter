@@ -1,7 +1,7 @@
 package de.buw.se4de.entity;
 
 import de.buw.se4de.ID;
-import de.buw.se4de.Object;
+import de.buw.se4de.GameObject;
 import de.buw.se4de.gameflow.Handler;
 
 import java.awt.*;
@@ -19,9 +19,9 @@ public class Fireball extends Projectile{
     }
     @Override
     public void collision(){
-        for(Object temp: handler.objects) {
+        for(GameObject temp: handler.gameObjects) {
             if (this.getBounds().intersects(temp.getBounds())) {
-                if (temp.getId() == ID.GUI || temp.getId() == ID.Frame)
+                if (temp.getId() == ID.GUI || temp.getId() == ID.Wall)
                     kill();
             }
         }

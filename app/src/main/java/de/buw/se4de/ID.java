@@ -5,8 +5,10 @@ public enum ID {
     Player,
     Enemy,
     Water,
-    Frame,
+    Wall,
     Hearts,
     GUI,
-    PROJECTILE
+    PROJECTILE,
+    SPAWN
+
 }

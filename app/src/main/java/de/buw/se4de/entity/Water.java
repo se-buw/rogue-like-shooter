@@ -2,10 +2,9 @@ package de.buw.se4de.entity;
 
 import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.ID;
-import de.buw.se4de.Object;
+import de.buw.se4de.GameObject;
 
 import java.awt.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Water extends Projectile {
     int bounce;
@@ -27,18 +26,19 @@ public class Water extends Projectile {
     @Override
     protected void collision(){
         //check if Water intersects the Fire, in this case Fire object disappears and appears in another place
-        for (Object temp:handler.objects){
+        for (GameObject temp:handler.gameObjects){
             if (getBounds().intersects(temp.getBounds())){
-                if(temp.getId() == ID.Frame) {
+                if(temp.getId() == ID.Wall) {
                     speed_x = speed_x * -1;
                     speed_y = speed_y * -1;
                     if(++bounce > bounce_limit)//TODO reflection(maybe)
                         kill();
                 }
                 else if (temp.getId() == ID.Enemy){
-                    if(Firefighter.power.PIERCING_PROJECTILE.lvl == 0)
-                            kill();
+                    //if(Firefighter.power.PIERCING_PROJECTILE.lvl == 0)
+                    kill();
                     ((Enemy)temp).takedamage(damage);
+                    System.out.println("DMG from: " + this);
                     //TODO Waves in game?
                 }
             }

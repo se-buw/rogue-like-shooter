@@ -4,10 +4,10 @@ import de.buw.se4de.entity.Firefighter;
 
 import java.awt.*;
 
-public class GUI extends Object{//TODO add frame
+public class GUI extends GameObject {//TODO add frame
 
     int width=1200;
-    int height=35;
+    int height=30;
     Firefighter player;
     final Rectangle restartbutton;
     public GUI(int x, int y, ID id,Firefighter p) {
