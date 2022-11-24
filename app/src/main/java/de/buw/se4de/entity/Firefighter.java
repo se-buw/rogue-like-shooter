@@ -121,9 +121,9 @@ public class Firefighter extends GameObject {
         hurt = hurttime * attackdamage;
     }
     public enum power{
-        BOUNCE(1,1,5,"Bouncing projectiles"),PROJECTILE_SPEED(2,2,30,"Faster Projectiles"),
+        BOUNCE(0,0,5,"Bouncing projectiles"),PROJECTILE_SPEED(2,2,30,"Faster Projectiles"),
         EXPLODING_ENEMY(0,0,1,"Friendly Enemys Explode"),PUDDLE_ON_DEATH(0,0,1,"PUDDLE ON DEATH!!"),
-        ARMOR(0,0,4,"Armor"),SWEETS(1,1,4,"Candy"),PROJECTILE_DMG(1,1,100,"More Damage"),//TODO clear tospawn
+        ARMOR(0,0,4,"Armor"),SWEETS(1,1,4,"Candy"),PROJECTILE_DMG(1,1,100,"More Damage"),
         STUN_DURATION(2,2,7,"Longer Stuns");
         final int minlvl;
         public int lvl;

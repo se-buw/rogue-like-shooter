@@ -105,7 +105,7 @@ public class Wave {
             choosewave();
             ready = false;
         }
-    }//TODO reset when restart
+    }
 
     public void relocate(Enemy e) {
         int sa = r.nextInt(0, vspawn.size());

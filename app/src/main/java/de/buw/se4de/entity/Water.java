@@ -40,21 +40,9 @@ public class Water extends Projectile {
                         kill();
                         continue;
                     }
-                    boolean horizontal = false;
-                    boolean vertical = false;
-                    int offset= 8;
-                    if(new Rectangle(getX() + getSizex() + offset,getY(),1,1).getBounds().intersects(temp.getBounds()) || new Rectangle(getX() - getSizex() + offset,getY(),1,1).getBounds().intersects(temp.getBounds())) {
-                        horizontal = true;
-                    }
-                    if(new Rectangle(getX(),getY() +getSizey() + offset,1,1).getBounds().intersects(temp.getBounds()) || new Rectangle(getX(),getY() - getSizey() + offset,1,1).getBounds().intersects(temp.getBounds())){
-                        vertical = true;
-                    }
-                    if(vertical){
-                        speed_y *= -1;
-                    }
-                    if(horizontal){
-                        speed_x *= -1;
-                    }
+                    speed_x*=-1;
+                    speed_y*=-1;
+
                     invincible = 0.01f;
                 }
                 else if (temp.getId() == ID.Enemy){

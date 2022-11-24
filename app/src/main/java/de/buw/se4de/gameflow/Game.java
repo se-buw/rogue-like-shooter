@@ -22,7 +22,7 @@ public class Game extends Canvas {
 
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
-        this.addMouseListener(new MouseInput(handler,this));//TODO reset power and make explosion less op
+        this.addMouseListener(new MouseInput(handler,this));
 
         while (true) {
             if(restart) {
@@ -94,7 +94,7 @@ public class Game extends Canvas {
         handler.draw(g);
 
         //make Player freeze and call "Game over" when there are no hearts left
-        if(handler.player.getHealth() <= 0){//TODO Replay
+        if(handler.player.getHealth() <= 0){
             handler.draw(g);
             handler.gui.DrawDeathScreen(g);
             for(int i=0;i<3;++i)
