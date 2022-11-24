@@ -2,32 +2,44 @@ package de.buw.se4de.gameflow;
 
 import de.buw.se4de.*;
 import de.buw.se4de.Frame;
+import de.buw.se4de.entity.Firefighter;
 import de.buw.se4de.input.KeyInput;
 import de.buw.se4de.input.MouseInput;
 import de.buw.se4de.map.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas {
     int width=1200;
-    int height=800;
+    int height=810;
     private final Handler handler;
+    public boolean restart = true;
+    Random r = new Random();
 
     public Game() {
-
         new de.buw.se4de.Window(width, height, "Firefighter", this);
 
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
-        this.addMouseListener(new MouseInput(handler,this));
+        this.addMouseListener(new MouseInput(handler,this));//TODO reset power and make explosion less op
 
-        initialize();
+        while (true) {
+            if(restart) {
+                initialize();
+                run();
+                restart = false;
+            }
+            try {
+                wait(1);
+            }catch (Exception ignored){}
+        }
     }
     public void initialize(){
         handler.clear();
         Map m = new Map();
-        m.getMap("0");
+        m.getMap(String.valueOf(r.nextInt(0,3)));
         handler.changemap(m);
         handler.wave.newwave();
         //create a frame
@@ -35,17 +47,13 @@ public class Game extends Canvas {
         handler.addObject(new Frame(width - 20 , 0, ID.Wall, 2, height)); // right
         handler.addObject(new Frame(0, 0, ID.Wall, width, 2)); // top
         handler.addObject(new Frame(0, height - 40, ID.Wall, width, 2)); // bottom
-
         //Create UI
-        handler.addGUI(new GUI(0,0,ID.GUI,handler.player));
+        handler.addGUI(new GUI(0,0,ID.GUI,handler.player,handler));
 
         handler.game_isrunning = true;
-        run();
-
     }
     public void stop() throws InterruptedException {
         handler.game_isrunning = false;
-        //thread.join();
     }
 
     public static void main(String[]args){
@@ -71,12 +79,6 @@ public class Game extends Canvas {
                 draw();
             }
         }
-
-        try {
-            stop();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     //image rendering
@@ -97,7 +99,7 @@ public class Game extends Canvas {
         handler.draw(g);
 
         //make Player freeze and call "Game over" when there are no hearts left
-        if(handler.player.getHealth() == 0){//TODO irgendwann anders Replay
+        if(handler.player.getHealth() <= 0){//TODO Replay
             handler.draw(g);
             handler.gui.DrawDeathScreen(g);
             for(int i=0;i<3;++i)

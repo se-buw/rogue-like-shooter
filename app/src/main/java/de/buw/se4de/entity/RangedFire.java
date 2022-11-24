@@ -10,7 +10,6 @@ public class RangedFire extends Enemy{
         super(x, y, ID.Enemy, 2, h, 250);
         oncooldown = 2.0f;
     }
-
     @Override
     public void draw(Graphics g) {
         if(!friendly)
@@ -21,7 +20,6 @@ public class RangedFire extends Enemy{
         g.fillRect(x, y, getSizex(), getSizey());
         super.drawrange(g);
     }
-
     @Override
     public Rectangle getBounds() {
         return new Rectangle(x,y,getSizex(),getSizey());
@@ -30,7 +28,7 @@ public class RangedFire extends Enemy{
     public void attack(){
         if(oncooldown <= 0.0f) {
             oncooldown = cooldown;
-            new Fireball(getX(),getY(),ID.PROJECTILE,handler.player.getX(),handler.player.getY(),handler,1);
+            new Fireball(getX(),getY(),handler.player.getX(),handler.player.getY(),handler,1);
         }
     }
 }

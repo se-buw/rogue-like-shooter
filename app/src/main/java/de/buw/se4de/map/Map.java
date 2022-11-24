@@ -8,7 +8,7 @@ import de.buw.se4de.ID;
 public class Map {
     public Vector<Wall> vwall;
     public Vector<Spawnarea> vspawn;
-    public Map(){//TODO a few maps
+    public Map(){
         vwall = new Vector<>();
         vspawn = new Vector<>();
     }
@@ -26,7 +26,7 @@ public class Map {
                 vline.add(line);
             }
             reader.close();
-        } catch (IOException e) {
+        } catch (IOException e) {//TODO crashed ohne spawnarea
             e.printStackTrace();
         }
         vline.remove(vline.size()-1);

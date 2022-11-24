@@ -24,13 +24,12 @@ public class MouseInput extends MouseAdapter {
     public void mousePressed(MouseEvent e){
         int x = e.getX();
         int y = e.getY();
-
         if(e.getButton() == MouseEvent.BUTTON1) {
             if (handler.game_isrunning)
-                new Water(handler.player.getX(), handler.player.getY(), ID.Water, x, y, handler);
+                new Water(handler.player.getX(), handler.player.getY(), x, y, handler);
             else{
                 if(handler.gui.getRestartbutton().intersects(x,y,1,1))
-                    game.initialize();
+                    game.restart = true;
             }
         }else {
             if (handler.game_isrunning){

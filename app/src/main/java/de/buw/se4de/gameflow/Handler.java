@@ -10,10 +10,7 @@ import de.buw.se4de.map.Map;
 import de.buw.se4de.map.Spawnarea;
 
 import java.awt.*;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Vector;
+import java.util.*;
 
 public class Handler {
     //used to manage all objects we have in the game
@@ -24,27 +21,34 @@ public class Handler {
     public GUI gui;
     public boolean game_isrunning = false;
     public Firefighter player = new Firefighter(50, 50, ID.Player, this,4);
+    public Random r=new Random();
 
+    long starttime= System.currentTimeMillis();
     Vector<Spawnarea> Spawn = new Vector<>();
 
 
     public void tick(int deltatick){
         player.tick(deltatick);
+        gui.tick(deltatick);
         boolean spawnnewwave=false;
-        for(Iterator<GameObject> iterator = gameObjects.iterator(); iterator.hasNext();) {
-            GameObject ob = iterator.next();
-            ob.tick(deltatick);
-            if(!ob.alive) {
-                spawnnewwave = wave.onkill();
-                iterator.remove();
+        try {
+            for (Iterator<GameObject> iterator = gameObjects.iterator(); iterator.hasNext(); ) {
+                GameObject ob = iterator.next();
+                ob.tick(deltatick);
+                if (!ob.alive) {
+                    spawnnewwave = wave.onkill();
+                    iterator.remove();
+                }
             }
-        }
-        for(Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
-            Projectile p = iterator.next();
-            p.tick(deltatick);
-            if(!p.alive)
-                iterator.remove();
-        }
+        }catch (ConcurrentModificationException ignored){}
+        try {
+            for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext(); ) {
+                Projectile p = iterator.next();
+                p.tick(deltatick);
+                if (!p.alive)
+                    iterator.remove();
+            }
+        }catch (ConcurrentModificationException ignored){}
         wave.tick(deltatick);
         if(spawnnewwave)
             wave.newwave();
@@ -109,12 +113,14 @@ public class Handler {
         projectiles.add(p);
     }
 
-    public void clear(){
+    public void clear(){//reset power
+        starttime = System.currentTimeMillis();
         gameObjects.clear();
         projectiles.clear();
+        Spawn.clear();
         up = false; down = false; right = false; left = false;
         player = new Firefighter(50, 50, ID.Player, this,4);
-        gui = new GUI(0,0,ID.GUI,player);
+        gui = new GUI(0,0,ID.GUI,player,this);
         wave.setWave(0);
     }
 
@@ -125,6 +131,9 @@ public class Handler {
         }
         Spawn.addAll(m.vspawn);
         wave.changespawn(m.vspawn);
+    }
+    public int gettime(){
+        return (int)(System.currentTimeMillis() - starttime);
     }
 
 }

@@ -13,13 +13,13 @@ public class KeyInput extends KeyAdapter {
     }
 
     public void keyPressed(KeyEvent e){
-        int key = e.getKeyCode();
-        switch (key) {
-            case KeyEvent.VK_W -> handler.setUp(true);
-            case KeyEvent.VK_A -> handler.setLeft(true);
-            case KeyEvent.VK_S -> handler.setDown(true);
-            case KeyEvent.VK_D -> handler.setRight(true);
-        }
+            int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_W -> handler.setUp(true);
+                case KeyEvent.VK_A -> handler.setLeft(true);
+                case KeyEvent.VK_S -> handler.setDown(true);
+                case KeyEvent.VK_D -> handler.setRight(true);
+            }
     }
 
     public void keyReleased(KeyEvent e){

@@ -9,14 +9,19 @@ import java.awt.*;
 public class Water extends Projectile {
     int bounce;
     int bounce_limit;
-    int damage;
-    int speed_multiplier;
+    float invincible = 0.0f;
 
-    public Water(int x, int y, ID id, int dir_x, int dir_y, Handler handler) {
-        super(x, y, id,dir_x,dir_y,handler,8,8);
+    public Water(int x, int y, int dir_x, int dir_y, Handler handler) {
+        super(x, y, ID.Water,dir_x,dir_y,handler,8,8);
         bounce_limit = Firefighter.power.BOUNCE.lvl;
+        speed *= Firefighter.power.PROJECTILE_SPEED.lvl;
+        damage = Firefighter.power.PROJECTILE_DMG.lvl;
         speed_multiplier = Firefighter.power.PROJECTILE_SPEED.lvl;
-        damage=Firefighter.power.PROJECTILE_DMG.lvl;
+    }
+    public void calculateSpeed(int fromX, int fromY, int toX, int toY) {
+        double mult = speed/Math.sqrt((toY - fromY)*(toY - fromY) + (toX - fromX)*(toX - fromX));
+        this.speed_y = (float)((toY - fromY)*mult);
+        this.speed_x = (float)((toX - fromX)*mult);
     }
     @Override
     public void draw(Graphics g) {
@@ -29,17 +34,43 @@ public class Water extends Projectile {
         for (GameObject temp:handler.gameObjects){
             if (getBounds().intersects(temp.getBounds())){
                 if(temp.getId() == ID.Wall) {
-                    speed_x = speed_x * -1;
-                    speed_y = speed_y * -1;
-                    if(++bounce > bounce_limit)//TODO reflection(maybe)?
+                    if(invincible > 0)
+                        continue;
+                    else if(++bounce > bounce_limit){//TODO reflection(maybe)? some angles not working fine maybe look at not hit hitbox aswll
                         kill();
+                        continue;
+                    }
+                    boolean horizontal = false;
+                    boolean vertical = false;
+                    int offset= 8;
+                    if(new Rectangle(getX() + getSizex() + offset,getY(),1,1).getBounds().intersects(temp.getBounds()) || new Rectangle(getX() - getSizex() + offset,getY(),1,1).getBounds().intersects(temp.getBounds())) {
+                        System.out.println("right or left");
+                        horizontal = true;
+                    }
+                    if(new Rectangle(getX(),getY() +getSizey() + offset,1,1).getBounds().intersects(temp.getBounds()) || new Rectangle(getX(),getY() - getSizey() + offset,1,1).getBounds().intersects(temp.getBounds())){
+                        System.out.println("bottom or top");
+                        vertical = true;
+                    }
+                    if(vertical){
+                        speed_y *= -1;
+                    }
+                    if(horizontal){
+                        speed_x *= -1;
+                    }
+                    invincible = 0.01f;
                 }
                 else if (temp.getId() == ID.Enemy){
-                    //if(Firefighter.power.PIERCING_PROJECTILE.lvl == 0)
                     kill();
                     ((Enemy)temp).takedamage(damage);
                 }
             }
         }
+    }
+
+    @Override
+    public void tick(int deltatick){
+        if (invincible > 0)
+            invincible -= ((float)deltatick)/60.0f;
+        super.tick(deltatick);
     }
 }

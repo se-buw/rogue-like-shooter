@@ -5,6 +5,7 @@ import de.buw.se4de.ID;
 import de.buw.se4de.GameObject;
 
 import java.awt.*;
+import java.util.Random;
 
 public abstract class Enemy extends GameObject {
     boolean friendly=false;
@@ -17,7 +18,7 @@ public abstract class Enemy extends GameObject {
 
     protected Handler handler;
     protected boolean inrange = false;
-
+    float friendlytime = 0;
     public Enemy(int x, int y, ID id, int hp, Handler h, int ar) {
         super(x, y, id);
         health = hp;
@@ -27,7 +28,6 @@ public abstract class Enemy extends GameObject {
             handler.wave.tospawn(this);
 
     }
-
     public boolean respawn() {
         for(GameObject go :handler.gameObjects) {
             if (go.getId() == ID.Enemy) {
@@ -36,10 +36,11 @@ public abstract class Enemy extends GameObject {
                 }
             }
         }
+        if(handler.player.getBounds().intersects(this.getBounds()))
+            return false;
         handler.addObject(this);
         return true;
     }
-
     @Override
     public void tick(int deltatick) {
         if(!friendly) {
@@ -58,13 +59,15 @@ public abstract class Enemy extends GameObject {
                 x += (int)speed_x * deltatick;
                 y += (int)speed_y * deltatick;
             }
+        }else {
+            friendlytime -= ((float)deltatick) / 60;
+            if (friendlytime <= 0.0f)
+                friendly = false;
         }
 
         collision();
-        if(x < 0 || y < 0) {//Todo DONT kill just guide them onto the righteous path
-            System.out.println(x + ", " + y);
-            kill();
-        }
+        if(x <= 0 || y <= 0)
+            handler.wave.relocate(this);
         oncooldown-= ((float)deltatick) / 60;
     }
     public void takedamage(int dmg){
@@ -90,9 +93,21 @@ public abstract class Enemy extends GameObject {
             y += speed_y * -1;
         }
     }
-    public void setFriendly(boolean f){friendly=f;}
+    public void setFriendly(boolean f){friendly=f;friendlytime = Firefighter.power.STUN_DURATION.lvl;}
      public void kill() {
          handler.player.setFiresextinguished();
+         if(Firefighter.power.PUDDLE_ON_DEATH.lvl == 1) {
+             int rand = handler.r.nextInt(0, 5);
+             if (rand == 0) {
+                 new Puddle(getX(), getY(), handler);
+             }
+         }
+         if(Firefighter.power.EXPLODING_PROJECTILE.lvl > 0) {
+             new Water(getX(), getY(), getX() + 1, getY(), handler);
+             new Water(getX(), getY(), getX(), getY() + 1, handler);
+             new Water(getX(), getY(), getX() - 1, getY(), handler);
+             new Water(getX(), getY(), getX(), getY() - 1, handler);
+         }
          super.kill();
      }
     public void attack(){
@@ -107,5 +122,10 @@ public abstract class Enemy extends GameObject {
             g.setColor(Color.RED);
         g.drawOval(getX()-attackrange,getY()-attackrange,this.attackrange*2,this.attackrange*2);
     }
-
+    public void setX(int sx) {
+        x = sx;
+    }
+    public void setY(int sy) {
+        y = sy;
+    }
 }

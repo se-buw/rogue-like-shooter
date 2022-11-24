@@ -1,23 +1,30 @@
 package de.buw.se4de;
 
 import de.buw.se4de.entity.Firefighter;
+import de.buw.se4de.gameflow.Handler;
 
 import java.awt.*;
 
 public class GUI extends GameObject {
-
+    float levelup=0;
+    String lvlpower;
     int width=1200;
     int height=30;
     Firefighter player;
+    Handler handler;
     final Rectangle restartbutton;
-    public GUI(int x, int y, ID id,Firefighter p) {
+    public GUI(int x, int y, ID id,Firefighter p,Handler h) {
         super(x, y, id);
         player = p;
         restartbutton = new Rectangle(490,450,230,70);
+        handler = h;
     }
 
     @Override
-    public void tick(int deltatick) {}
+    public void tick(int deltatick) {
+        if(levelup >= 0)
+            levelup -= (float)deltatick/60.0f;
+    }
 
     @Override
     public void draw(Graphics g) {
@@ -27,15 +34,25 @@ public class GUI extends GameObject {
         g.setColor(Color.white);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         g.drawString("extinguished: " + player.getFiresextinguished(), 280, 20);
+        g.drawString("time: " + String.valueOf(handler.gettime()/1000) +"s",400,20);
+        if(levelup > 0) {
+            g.setColor(Color.YELLOW);
+            g.drawString("'" + lvlpower + "'",500,20);
+        }
         //g.drawString("extinguished: " + player, 280, 20);
 
         for(int hp = 0;hp <  player.getHealth();++hp){
-            drawhearts(g,hp);
+            drawhearts(g,hp,Color.red);
         }
+        for(int hp = 0;hp <  player.getAmor();++hp){
+            drawhearts(g,hp,Color.MAGENTA);
+        }
+
+
     }
 
-    private void drawhearts(Graphics g,int hp){
-        g.setColor(Color.red);
+    private void drawhearts(Graphics g,int hp,Color c){
+        g.setColor(c);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
         g.drawString("\u2665",hp*30 , 30);
     }
@@ -52,9 +69,13 @@ public class GUI extends GameObject {
     public Rectangle getBounds() {
         return new Rectangle(x,y, width,height);
     }
-    //TODO time
 
     public Rectangle getRestartbutton() {
         return restartbutton;
+    }
+
+    public void drawlevelup(String p){
+        levelup = 4;
+        lvlpower = p;
     }
 }

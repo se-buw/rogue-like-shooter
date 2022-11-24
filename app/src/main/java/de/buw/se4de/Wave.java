@@ -28,11 +28,13 @@ public class Wave {
     public void choosewave(){
         switch (wave) {
             case 0 -> {
-                for(int i = 0; i<= 0; ++i){
+                for(int i = 0; i<= 2; ++i){
                     int sa = r.nextInt(0,vspawn.size());
                     new Fire(vspawn.get(sa).getX(),vspawn.get(sa).getY(),handler);
                 }
-                alive = 1;
+                int sa = r.nextInt(0,vspawn.size());
+                new GhostFire(vspawn.get(sa).getX(),vspawn.get(sa).getY(),handler);//TODO uncomment
+                alive = 4;
             }
             case 1-> {
                 for (int i = 0; i <= 2; ++i) {
@@ -43,7 +45,11 @@ public class Wave {
                     int sa = r.nextInt(0, vspawn.size());
                     new RangedFire(vspawn.get(sa).getX(), vspawn.get(sa).getY(), handler);
                 }
-                alive = 6;
+                for(int i = 0; i<= 2; ++i){
+                    int sa = r.nextInt(0,vspawn.size());
+                    new GhostFire(vspawn.get(sa).getX(),vspawn.get(sa).getY(),handler);
+                }
+                alive = 9;
             }
             default ->{
                 for (int i = 0; i < wave*5; ++i) {
@@ -54,7 +60,11 @@ public class Wave {
                     int sa = r.nextInt(0, vspawn.size());
                     new RangedFire(vspawn.get(sa).getX(), vspawn.get(sa).getY(), handler);
                 }
-                alive = wave*5 +wave*3;
+                for(int i = 0; i < 2 * wave; ++i){
+                    int sa = r.nextInt(0,vspawn.size());
+                    new GhostFire(vspawn.get(sa).getX(),vspawn.get(sa).getY(),handler);
+                }
+                alive = wave*5 +wave*3 + wave*2;//TODO Reset powerups
             }
         }
     }
@@ -73,11 +83,9 @@ public class Wave {
         ready = true;
         oncooldown = cooldown;
     }
-
     public void setWave(int wave) {
         this.wave = wave;
     }
-
     public void tospawn(Enemy e) {
         vtospawn.add(e);
     }
@@ -90,5 +98,11 @@ public class Wave {
             choosewave();
             ready = false;
         }
+    }//TODO reset when restart
+
+    public void relocate(Enemy e) {
+        int sa = r.nextInt(0, vspawn.size());
+        e.setX(vspawn.get(sa).getX());
+        e.setY(vspawn.get(sa).getY());
     }
 }

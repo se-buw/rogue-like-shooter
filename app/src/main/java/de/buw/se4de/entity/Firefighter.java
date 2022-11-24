@@ -6,10 +6,16 @@ import de.buw.se4de.GameObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.util.Collection;
+import java.util.Random;
+import java.util.Vector;
 
 public class Firefighter extends GameObject {
     final private Handler handler;
     private int health;
+    private float armor;
+    float hurt = 0.0f;
+    float hurttime = 0.25f;
     private int firesextinguished;
     private final int movementspeed = 6;
     public Firefighter(int x, int y, ID id, Handler handler, int hearts) {
@@ -17,10 +23,14 @@ public class Firefighter extends GameObject {
         this.handler = handler;
         this.health = hearts;
         firesextinguished = 0;
+        armor = power.ARMOR.lvl;
     }
 
     public int getHealth() {
         return health;
+    }
+    public int getAmor() {
+        return (int)armor;
     }
 
     public void tick(int deltatick) {
@@ -56,14 +66,21 @@ public class Firefighter extends GameObject {
         } else if (!handler.isRight()) {
             speed_x = 0;
         }
+        hurt -= ((float)deltatick) / 60.0f;
+        if(armor<=Math.min(power.ARMOR.lvl,health)){
+            armor += ((float)deltatick) / 360.0f;
+        }
     }
 
     public void draw(@NotNull Graphics g) {
         g.setColor(Color.white);
+        if(hurt >= 0.0f ){
+            g.setColor(Color.red);
+        }
         g.fillOval(x, y, getSizex(), getSizey());
     }
 
-    private void collision() {//TODO rechte wand verschieben
+    private void collision() {
         if (getBounds().intersects(handler.gui.getBounds())) {
             x += speed_x * -1;
             y += speed_y * -1;
@@ -78,13 +95,16 @@ public class Firefighter extends GameObject {
     }
     @Override
     public Rectangle getBounds() {
-       return new Rectangle(x, y, 30, 30);
+       return new Rectangle(x+3, y+3, getSizex()-8, getSizey()-8);
     }
     private void levelup(){
-        //TODO powers regulated(1 of 3 random powers to choose from)
-        ++power.BOUNCE.lvl;
-        ++power.PROJECTILE_SPEED.lvl;
-        ++power.PIERCING_PROJECTILE.lvl;
+        Vector<power> vpower =  power.refreshvector();
+        if(vpower.size() == 0)
+            return;
+        int powertolevelup = handler.r.nextInt(0,vpower.size());
+        power p = vpower.get(powertolevelup);
+        handler.gui.drawlevelup(String.valueOf(p));
+        ++p.lvl;
     }
     public int getFiresextinguished() {
         return firesextinguished;
@@ -94,19 +114,31 @@ public class Firefighter extends GameObject {
         if(firesextinguished % 10 == 0)
             levelup();
     }
-
     public void takedamage(int attackdamage) {
-        health-=attackdamage;
+        armor -= attackdamage;
+        if(armor < 0) {
+            health += armor;
+            armor = 0;
+        }
+        hurt = hurttime * attackdamage;
     }
-
     public enum power{
-        BOUNCE(0,5),PROJECTILE_SPEED(1,30),MORE_PROJECTILES(1,2),PIERCING_PROJECTILE(0,1),
-        EXPLODING_PROJECTILE(0,3),PUDDLE_ON_DEATH(0,1),SHIELD(0,5),ARMOR(0,4),SWEETS(0,4),PROJECTILE_DMG(1,100);
-        int lvl;
+        BOUNCE(1,5),PROJECTILE_SPEED(15,30),
+        EXPLODING_PROJECTILE(0,1),PUDDLE_ON_DEATH(1,1),
+        ARMOR(0,4),SWEETS(1,4),PROJECTILE_DMG(1,100),
+        STUN_DURATION(2,7);
+        public int lvl;
         final int maxlvl;
-        power(int l,int ml){//TODO THIS
+        power(int l,int ml){
             lvl = l;
             maxlvl=ml;
+        }
+        public static Vector<power> refreshvector(){
+            Vector<power> vr = new Vector<>();
+            for(power p:power.values())
+                if(p.lvl<p.maxlvl)
+                    vr.add(p);
+            return vr;
         }
 
     }

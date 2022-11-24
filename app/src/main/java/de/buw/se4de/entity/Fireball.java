@@ -7,8 +7,8 @@ import de.buw.se4de.gameflow.Handler;
 import java.awt.*;
 
 public class Fireball extends Projectile{
-    public Fireball(int x, int y, ID id, int dir_x, int dir_y, Handler handler,int dmg) {
-        super(x, y, id, dir_x, dir_y, handler);
+    public Fireball(int x, int y, int dir_x, int dir_y, Handler handler,int dmg) {
+        super(x, y, ID.PROJECTILE, dir_x, dir_y, handler);
         damage = dmg;
     }
 

@@ -8,13 +8,15 @@ import de.buw.se4de.gameflow.Game;
 import javax.swing.*;
 
 public class Window {
+	JFrame frame;
 	public Window(int width, int height, String title, Game game) {
-		JFrame frame = new JFrame(title);
+		frame = new JFrame(title);
 		frame.setSize(width,height);
 		frame.setResizable(false);
 		frame.add(game);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-	}
+	}//TODO change gradle working directory
+
 }

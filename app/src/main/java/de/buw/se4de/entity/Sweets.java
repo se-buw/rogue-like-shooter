@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Sweets extends Projectile {
     public Sweets(int x, int y, ID id, int dir_x, int dir_y, Handler handler){
-        super(x,y,id,dir_x,dir_y,handler);
+        super(x-Firefighter.power.SWEETS.lvl*5,y-Firefighter.power.SWEETS.lvl*5,id,dir_x,dir_y,handler,Firefighter.power.SWEETS.lvl*10,Firefighter.power.SWEETS.lvl*10);
     }
     @Override
     protected void collision() {
