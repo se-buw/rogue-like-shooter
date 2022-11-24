@@ -17,8 +17,8 @@ public class Map {
         Vector<String> vline = new Vector<>();
         BufferedReader reader;
         String line;
-        try {
-            reader = new BufferedReader(new FileReader("app/src/main/resources/map_" + s));
+        try {                                  //remove "app/" from string when starting with gradle / add "app/" when using intellij
+            reader = new BufferedReader(new FileReader("src/main/resources/map_" + s));
             line = reader.readLine();
             while (line != null) {
                 // read next line
