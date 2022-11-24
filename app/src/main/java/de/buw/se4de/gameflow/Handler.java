@@ -115,13 +115,14 @@ public class Handler {
 
     public void clear(){//reset power
         starttime = System.currentTimeMillis();
+        Firefighter.power.reset();
         gameObjects.clear();
         projectiles.clear();
         Spawn.clear();
         up = false; down = false; right = false; left = false;
         player = new Firefighter(50, 50, ID.Player, this,4);
         gui = new GUI(0,0,ID.GUI,player,this);
-        wave.setWave(0);
+        wave.resetWave(0);
     }
 
     public void changemap(Map m) {

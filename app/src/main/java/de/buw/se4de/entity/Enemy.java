@@ -27,6 +27,14 @@ public abstract class Enemy extends GameObject {
             handler.wave.tospawn(this);
 
     }
+    public Enemy(int x, int y,int hp, int w, int h,int ar,Handler ha){
+        super(x,y,w,h,ID.Enemy);
+        health = hp;
+        attackrange = ar;
+        handler = ha;
+        if(!respawn())
+            handler.wave.tospawn(this);
+    }
     public boolean respawn() {
         for(GameObject go :handler.gameObjects) {
             if (go.getId() == ID.Enemy) {
@@ -101,7 +109,7 @@ public abstract class Enemy extends GameObject {
                  new Puddle(getX(), getY(), handler);
              }
          }
-         if(Firefighter.power.EXPLODING_PROJECTILE.lvl > 0) {
+         if(Firefighter.power.EXPLODING_ENEMY.lvl > 0 && friendly) {
              new Water(getX(), getY(), getX() + 1, getY(), handler);
              new Water(getX(), getY(), getX(), getY() + 1, handler);
              new Water(getX(), getY(), getX() - 1, getY(), handler);
@@ -126,5 +134,9 @@ public abstract class Enemy extends GameObject {
     }
     public void setY(int sy) {
         y = sy;
+    }
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle(x,y,getSizex(),getSizey());
     }
 }

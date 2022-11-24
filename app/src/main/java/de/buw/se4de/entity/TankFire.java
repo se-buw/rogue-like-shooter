@@ -1,30 +1,28 @@
 package de.buw.se4de.entity;
 
 import de.buw.se4de.gameflow.Handler;
-import de.buw.se4de.ID;
 
 import java.awt.*;
 
-public class Fire extends Enemy {
-    float casttime = 0.8f;
-    float maxcasttime = 0.8f;
-    public Fire(int x, int y, Handler handler) {
-        super(x, y, ID.Enemy,3,handler,30);
-        movementspeed = 4;
-        attackdamage = 1;
-        health=2;
+public class TankFire extends Enemy{
+    float casttime = 1.5f;
+    float maxcasttime = 1.5f;
+    public TankFire(int x,int y, Handler handler) {
+        super(x, y,10, 50, 50,70,handler);
+        movementspeed = 2;
+        attackdamage = 3;
     }
+
     @Override
     public void draw(Graphics g) {
         if(!friendly)
-            g.setColor(Color.red);
+            g.setColor(new Color(255,100,0));
         else
             g.setColor(Color.GREEN);
-
-        g.fillRect(x, y, 30, 30);
+        g.fillRect(x,y,getSizex(),getSizey());
         drawrange(g);
     }
-    @Override
+
     public void drawrange(Graphics g){
         try {
             g.setColor(new Color(255,255,0));
@@ -35,7 +33,6 @@ public class Fire extends Enemy {
             System.out.println(casttime/maxcasttime);
         }
     }
-
     @Override
     public void tick(int deltatick){
         super.tick(deltatick);

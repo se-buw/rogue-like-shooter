@@ -18,7 +18,7 @@ public class Map {
         BufferedReader reader;
         String line;
         try {                                  //remove "app/" from string when starting with gradle / add "app/" when using intellij
-            reader = new BufferedReader(new FileReader("src/main/resources/map_" + s));
+            reader = new BufferedReader(new FileReader("app/src/main/resources/map_" + s));
             line = reader.readLine();
             while (line != null) {
                 // read next line
@@ -26,7 +26,7 @@ public class Map {
                 vline.add(line);
             }
             reader.close();
-        } catch (IOException e) {//TODO crashed ohne spawnarea
+        } catch (IOException e) {
             e.printStackTrace();
         }
         vline.remove(vline.size()-1);

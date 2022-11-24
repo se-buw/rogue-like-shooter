@@ -44,11 +44,9 @@ public class Water extends Projectile {
                     boolean vertical = false;
                     int offset= 8;
                     if(new Rectangle(getX() + getSizex() + offset,getY(),1,1).getBounds().intersects(temp.getBounds()) || new Rectangle(getX() - getSizex() + offset,getY(),1,1).getBounds().intersects(temp.getBounds())) {
-                        System.out.println("right or left");
                         horizontal = true;
                     }
                     if(new Rectangle(getX(),getY() +getSizey() + offset,1,1).getBounds().intersects(temp.getBounds()) || new Rectangle(getX(),getY() - getSizey() + offset,1,1).getBounds().intersects(temp.getBounds())){
-                        System.out.println("bottom or top");
                         vertical = true;
                     }
                     if(vertical){

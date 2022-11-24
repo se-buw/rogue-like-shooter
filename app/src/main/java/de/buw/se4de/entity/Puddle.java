@@ -12,6 +12,7 @@ public class Puddle extends Projectile{
     public Puddle(int x, int y, Handler handler) {
         super(x, y, ID.PROJECTILE, x, y, handler);
         active = 0.0f;
+        damage = 1;
     }
 
     @Override
@@ -28,7 +29,6 @@ public class Puddle extends Projectile{
             g.fillRect(x, y, 30, 30);
         }
     }
-
     @Override
     protected void collision() {
         if(active <= 0){
@@ -36,9 +36,7 @@ public class Puddle extends Projectile{
                 if(o.getId() == ID.Enemy) {
                     if (getBounds().intersects(o.getBounds())) {
                         ((Enemy)o).takedamage(damage);
-                        o.kill();
                         kill();
-                        System.out.println("hää " +o );
                     }
                 }
             }
