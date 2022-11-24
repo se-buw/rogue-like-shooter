@@ -2,7 +2,6 @@ package de.buw.se4de.gameflow;
 
 import de.buw.se4de.*;
 import de.buw.se4de.Frame;
-import de.buw.se4de.entity.Firefighter;
 import de.buw.se4de.input.KeyInput;
 import de.buw.se4de.input.MouseInput;
 import de.buw.se4de.map.*;
@@ -52,10 +51,6 @@ public class Game extends Canvas {
 
         handler.game_isrunning = true;
     }
-    public void stop() throws InterruptedException {
-        handler.game_isrunning = false;
-    }
-
     public static void main(String[]args){
         new Game();
     }

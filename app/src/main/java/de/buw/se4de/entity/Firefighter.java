@@ -6,8 +6,6 @@ import de.buw.se4de.GameObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.util.Collection;
-import java.util.Random;
 import java.util.Vector;
 
 public class Firefighter extends GameObject {

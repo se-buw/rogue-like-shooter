@@ -34,7 +34,7 @@ public class GUI extends GameObject {
         g.setColor(Color.white);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         g.drawString("extinguished: " + player.getFiresextinguished(), 280, 20);
-        g.drawString("time: " + String.valueOf(handler.gettime()/1000) +"s",400,20);
+        g.drawString("time: " + handler.gettime()/1000 +"s",400,20);
         if(levelup > 0) {
             g.setColor(Color.YELLOW);
             g.drawString("'" + lvlpower + "'",500,20);

@@ -5,7 +5,6 @@ import de.buw.se4de.ID;
 import de.buw.se4de.GameObject;
 
 import java.awt.*;
-import java.util.Random;
 
 public abstract class Enemy extends GameObject {
     boolean friendly=false;
