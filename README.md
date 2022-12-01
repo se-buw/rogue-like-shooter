@@ -12,4 +12,4 @@ FEATURES
 - [ ] Different weapons: stronger water flow
 - [ ] Create goal for the game (ex.: extinguishing 10 fires)
 
-Die Basis Implementation orientiert sich auf dieser Quelle: https://www.youtube.com/playlist?list=PLWms45O3n--5vDnNd6aiu1CSWX3JlCU1n
+Die erste Implementation orientiert sich an dieser Quelle: https://www.youtube.com/playlist?list=PLWms45O3n--5vDnNd6aiu1CSWX3JlCU1n
