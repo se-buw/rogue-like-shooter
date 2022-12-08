@@ -13,6 +13,6 @@ class KeyInputTest {
     @Test
     void testKeyInput(){
         KeyInput keyInput = new KeyInput(new Handler());
-        //keyInput.keyPressed(KeyEvent e);
+        //keyInput.keyPressed();
     }
 }

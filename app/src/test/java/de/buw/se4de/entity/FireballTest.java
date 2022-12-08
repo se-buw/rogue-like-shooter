@@ -1,10 +1,17 @@
 package de.buw.se4de.entity;
 
 import de.buw.se4de.gameflow.Handler;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import de.buw.se4de.gameflow.Handler;
 
+import java.awt.*;
+import java.awt.image.BufferStrategy;
+
 import static org.junit.jupiter.api.Assertions.*;
+import java.awt.image.BufferStrategy;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 
 class FireballTest {
 
@@ -26,6 +33,5 @@ class FireballTest {
     @Test
     void testDraw(){
         Fireball fireball = new Fireball(10, 10, 1,1,new Handler(), 10);
-
     }
 }

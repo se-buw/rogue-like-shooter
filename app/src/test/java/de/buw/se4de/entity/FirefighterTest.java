@@ -3,11 +3,14 @@ package de.buw.se4de.entity;
 import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.ID;
 import org.junit.jupiter.api.Test;
+import de.buw.se4de.gameflow.Handler;
+
+import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FirefighterTest {
-
+    /* ----------------- black box testing begin -------------*/
     @Test
     void testConstructorTrivialInput(){
         Firefighter firefighter = new Firefighter(10, 10, ID.Player, new Handler(), 10);
@@ -46,5 +49,14 @@ class FirefighterTest {
         firefighter.takedamage(0);
         assertEquals(10, firefighter.getHealth());
     }
+    @Test
+    void testTakeDamageForValueBiggerThanInput(){
+        Firefighter firefighter = new Firefighter(10, 10, ID.Player, new Handler(), 10);
+        firefighter.takedamage(20);
+        assertEquals(0, firefighter.getHealth());
+    }
+
+    /* ----------------- black box testing end -------------*/
+
 
 }
