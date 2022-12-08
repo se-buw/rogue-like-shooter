@@ -8,10 +8,11 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// !!!!!!! White box testing !!!!!!
 class FireTest {
 
     @Test
-    void testConstructor(){
+    void testConstructorFireClass(){
         Fire fire = new Fire(10, 10, new Handler());
         assertEquals(25, fire.getX());
         assertEquals(25, fire.getY());

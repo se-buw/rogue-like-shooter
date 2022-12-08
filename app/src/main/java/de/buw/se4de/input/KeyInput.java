@@ -13,6 +13,7 @@ public class KeyInput extends KeyAdapter {
     }
 
     public void keyPressed(KeyEvent e){
+        System.out.println(e);
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_W -> handler.setUp(true);
