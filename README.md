@@ -1,5 +1,7 @@
 # Firefighter
 
+![gradle build](https://github.com/se-buw/rogue-like-shooter/actions/workflows/gradle.yml/badge.svg)
+
 BASIC FUNCTIONALITY
 - [x] make bullet speed independent of distance to cursor
 - [ ] fix bug that makes game freeze
