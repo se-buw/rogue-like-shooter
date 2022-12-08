@@ -83,4 +83,80 @@ class KeyInputTest {
 
         k.keyPressed(KeyEvent);
     }
+
+    @Test
+    void testKeyReleasedW(){
+        Handler h = new Handler();
+        KeyInput k = new KeyInput(h);
+        Component component = new Component() {
+            @Override
+            public String getName() {
+                return super.getName();
+            }
+        };
+
+        KeyEvent KeyEvent = new KeyEvent(component, 401, 1670522242, 0, 87, 'w', 1);
+        k.keyPressed(KeyEvent);
+        k.keyReleased(KeyEvent);
+        assertEquals(false, k.handler.isUp());
+
+        k.keyPressed(KeyEvent);
+    }
+
+    @Test
+    void testKeyReleasedA(){
+        Handler h = new Handler();
+        KeyInput k = new KeyInput(h);
+        Component component = new Component() {
+            @Override
+            public String getName() {
+                return super.getName();
+            }
+        };
+
+        KeyEvent KeyEvent = new KeyEvent(component, 401, 1670522242, 0, 65, 'a', 1);
+        k.keyPressed(KeyEvent);
+        k.keyReleased(KeyEvent);
+        assertEquals(false, k.handler.isLeft());
+
+        k.keyPressed(KeyEvent);
+    }
+
+    @Test
+    void testKeyReleasedS(){
+        Handler h = new Handler();
+        KeyInput k = new KeyInput(h);
+        Component component = new Component() {
+            @Override
+            public String getName() {
+                return super.getName();
+            }
+        };
+
+        KeyEvent KeyEvent = new KeyEvent(component, 401, 1670522242, 0, 83, 's', 1);
+        k.keyPressed(KeyEvent);
+        k.keyReleased(KeyEvent);
+        assertEquals(false, k.handler.isDown());
+
+        k.keyPressed(KeyEvent);
+    }
+
+    @Test
+    void testKeyReleasedD(){
+        Handler h = new Handler();
+        KeyInput k = new KeyInput(h);
+        Component component = new Component() {
+            @Override
+            public String getName() {
+                return super.getName();
+            }
+        };
+
+        KeyEvent KeyEvent = new KeyEvent(component, 401, 1670522242, 0, 68, 'd', 1);
+        k.keyPressed(KeyEvent);
+        k.keyReleased(KeyEvent);
+        assertEquals(false, k.handler.isRight());
+
+        k.keyPressed(KeyEvent);
+    }
 }
