@@ -22,7 +22,8 @@ class FireballTest {
         assertEquals(25, fireball.getY());
         assertEquals(30, fireball.getSizex());
         assertEquals(30, fireball.getSizey());
-        assertEquals(10, fireball.getHealth());
+        // a fireball should have 0 health, as it is not a living entity
+        assertEquals(0, fireball.getHealth());
     }
 
     @Test
