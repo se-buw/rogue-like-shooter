@@ -63,8 +63,10 @@ public abstract class Enemy extends GameObject {
                 speed_x *= mult;
                 speed_y *= mult;
 
-                x += (int)speed_x * deltatick;
-                y += (int)speed_y * deltatick;
+                if (checkMovementX(deltatick))
+                    x += (int)speed_x * deltatick;
+                if (checkMovementY(deltatick))
+                    y += (int)speed_y * deltatick;
             }
         }else {
             friendlytime -= ((float)deltatick) / 60;
@@ -89,8 +91,8 @@ public abstract class Enemy extends GameObject {
             if (temp == this/*||temp.getId()==ID.Enemy*/)
                 continue;
             if (getBounds().intersects(temp.getBounds())) {
-                x += speed_x * -1;
-                y += speed_y * -1;
+                x += speed_x * Integer.signum(getX() - temp.getX());
+                y += speed_y * Integer.signum(getY() - temp.getY());
                 break;
             }
 
@@ -100,6 +102,37 @@ public abstract class Enemy extends GameObject {
             y += speed_y * -1;
         }
     }
+
+    private boolean checkMovementX(int deltatick) {
+        x += (int)speed_x * deltatick;
+        for (int i = 0; i < handler.gameObjects.size(); i++) {
+            GameObject temp = handler.gameObjects.get(i);
+            if (temp == this/*||temp.getId()==ID.Enemy*/)
+                continue;
+            if (getBounds().intersects(temp.getBounds())) {
+                x -= (int)speed_x * deltatick;
+                return false;
+            }
+        }
+        x -= (int)speed_x * deltatick;
+        return true;
+    }
+
+    private boolean checkMovementY(int deltatick) {
+        y += (int)speed_y * deltatick;
+        for (int i = 0; i < handler.gameObjects.size(); i++) {
+            GameObject temp = handler.gameObjects.get(i);
+            if (temp == this/*||temp.getId()==ID.Enemy*/)
+                continue;
+            if (getBounds().intersects(temp.getBounds())) {
+                y -= (int)speed_y * deltatick;
+                return false;
+            }
+        }
+        y -= (int)speed_y * deltatick;
+        return true;
+    }
+
     public void setFriendly(boolean f){friendly=f;friendlytime = Firefighter.power.STUN_DURATION.lvl;}
      public void kill() {
          handler.player.setFiresextinguished();
