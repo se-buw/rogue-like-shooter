@@ -19,7 +19,7 @@ public class Firefighter extends GameObject {
     public Firefighter(int x, int y, ID id, Handler handler, int hearts) {
         super(x, y, id);
         this.handler = handler;
-        this.health = hearts;
+        this.health = Math.max(1, hearts); // give the firefighter a minimum of 1 health
         firesextinguished = 0;
         armor = power.ARMOR.lvl;
     }
@@ -116,6 +116,7 @@ public class Firefighter extends GameObject {
         armor -= attackdamage;
         if(armor < 0) {
             health += armor;
+            health = Math.max(0, health); // clamp health to a minimum value of 0
             armor = 0;
         }
         hurt = hurttime * attackdamage;
