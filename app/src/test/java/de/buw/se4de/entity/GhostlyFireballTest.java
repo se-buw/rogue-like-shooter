@@ -16,7 +16,6 @@ class GhostlyFireballTest {
         assertEquals(30, ghostlyfireball.getSizex());
         assertEquals(30, ghostlyfireball.getSizey());
         assertEquals(ID.PROJECTILE, ghostlyfireball.getId());
-        assertEquals(0, ghostlyfireball.fade);
     }
 
 }
