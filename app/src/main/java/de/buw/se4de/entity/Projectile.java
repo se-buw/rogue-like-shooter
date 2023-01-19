@@ -5,6 +5,8 @@ import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.GameObject;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+
 public abstract class Projectile extends GameObject {
     Handler handler;
     double speed = 7;
@@ -42,6 +44,22 @@ public abstract class Projectile extends GameObject {
 
         collision();
     }
+
+    @Override
+    public void draw(Graphics g, int deltatick) {
+        spriteTimer += deltatick;
+        if (spriteTimer > spriteUpdateTime) {
+            spriteTimer = spriteTimer % spriteUpdateTime;
+            spriteFrame = (spriteFrame + 1) % spriteFrames;
+        }
+        Graphics2D g2d = (Graphics2D)g;
+        AffineTransform old = g2d.getTransform();
+        g2d.translate(getX(), getY());
+        g2d.rotate(Math.atan2(speed_y, speed_x));
+        g2d.drawImage(sprite, -getSizex(), -getSizey(), getSizex(), getSizey(), spriteFrame*spriteSize, 0, (spriteFrame+1)*spriteSize, spriteSize, null);
+        g2d.setTransform(old);
+    }
+
     protected abstract void collision();
     @Override
     public Rectangle getBounds() {

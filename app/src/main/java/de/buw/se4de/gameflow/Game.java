@@ -70,14 +70,14 @@ public class Game extends Canvas {
             lastTime = now;
             if (delta >= 1){
                 handler.tick((int)delta);
+                draw((int)delta);
                 delta -= (int)delta;
-                draw();
             }
         }
     }
 
     //image rendering
-    public void draw(){
+    public void draw(int deltatick){
         //BufferStrategy is responsible for preloading 3 frames before updating to make game run smoothly
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
@@ -89,13 +89,13 @@ public class Game extends Canvas {
 
         //background
 
-        g.setColor(Color.gray);
+        g.setColor(Color.DARK_GRAY);
         g.fillRect(0, 0,width,height);
-        handler.draw(g);
+        handler.draw(g, deltatick);
 
         //make Player freeze and call "Game over" when there are no hearts left
         if(handler.player.getHealth() <= 0){
-            handler.draw(g);
+            handler.draw(g, deltatick);
             handler.gui.DrawDeathScreen(g);
             for(int i=0;i<3;++i)
                 bs.show();

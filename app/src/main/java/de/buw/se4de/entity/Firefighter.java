@@ -5,7 +5,13 @@ import de.buw.se4de.ID;
 import de.buw.se4de.GameObject;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+
 import java.util.Vector;
 
 public class Firefighter extends GameObject {
@@ -22,6 +28,12 @@ public class Firefighter extends GameObject {
         this.health = Math.max(1, hearts); // give the firefighter a minimum of 1 health
         firesextinguished = 0;
         armor = power.ARMOR.lvl;
+        try {
+            sprite = ImageIO.read(new File("src/main/resources/sprites/firefighter.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        spriteSize = 32;
     }
 
     public int getHealth() {
@@ -70,12 +82,18 @@ public class Firefighter extends GameObject {
         }
     }
 
-    public void draw(@NotNull Graphics g) {
-        g.setColor(Color.white);
+    @Override
+    public void draw(@NotNull Graphics g, int deltatick) {
+        Graphics2D g2d = (Graphics2D)g;
+        AffineTransform old = g2d.getTransform();
+        g2d.translate(getX(), getY());
+        g2d.rotate(Math.atan2(speed_x, -speed_y));
+        g2d.drawImage(sprite, -getSizex(), -getSizey(), getSizex(), getSizey(), spriteFrame*spriteSize, 0, (spriteFrame+1)*spriteSize, spriteSize, null);
+        g2d.setTransform(old);
         if(hurt >= 0.0f ){
             g.setColor(Color.red);
+            g.fillOval(x, y-getSizey(), getSizex(), getSizey());
         }
-        g.fillOval(x, y, getSizex(), getSizey());
     }
 
     private void collision() {

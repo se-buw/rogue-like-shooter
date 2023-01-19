@@ -27,7 +27,7 @@ public class GUI extends GameObject {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int deltatick) {
         g.setColor(Color.BLACK);
         g.fillRect(x, y, width, height);
 

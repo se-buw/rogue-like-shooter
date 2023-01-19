@@ -26,7 +26,7 @@ public class Sweets extends Projectile {
         }
     }
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int deltatick) {
         g.setColor(Color.CYAN);
         g.fillOval(x, y, getSizex(), getSizey());
     }

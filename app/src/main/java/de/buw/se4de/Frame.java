@@ -15,7 +15,8 @@ public class Frame extends GameObject {
     public void tick(int deltatick) {
     }
 
-    public void draw(Graphics g) {
+    @Override
+    public void draw(Graphics g, int deltatick) {
         g.setColor(Color.BLACK);
         g.fillRect(x, y, width, length);
     }

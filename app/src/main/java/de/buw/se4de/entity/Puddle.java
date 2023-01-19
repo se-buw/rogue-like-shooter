@@ -23,7 +23,7 @@ public class Puddle extends Projectile{
             collision();
     }
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int deltatick) {
         if(active <= 0) {
             g.setColor(Color.BLUE);
             g.fillRect(x, y, 30, 30);

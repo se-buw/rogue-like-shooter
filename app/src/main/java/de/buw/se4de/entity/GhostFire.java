@@ -3,33 +3,29 @@ package de.buw.se4de.entity;
 import de.buw.se4de.ID;
 import de.buw.se4de.gameflow.Handler;
 
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 import java.awt.*;
 
 public class GhostFire extends Enemy{
-    int fade=0;
-    boolean fadingin=true;
     public GhostFire(int x, int y, Handler h) {
         super(x, y, ID.Enemy, 3, h,150 );
         movementspeed = 2;
+        try {
+            sprite = ImageIO.read(new File("src/main/resources/sprites/ghost.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        spriteFrames = 4;
+        spriteSize = 8;
+        spriteUpdateTime = 8;
     }
 
     @Override
-    public void draw(Graphics g) {
-        if(friendly)
-            g.setColor(Color.GREEN);
-        else {
-            if (fadingin) {
-                fade += 1;
-                if (fade >= 100)
-                    fadingin = false;
-            } else {
-                fade -= 1;
-                if (fade <= 1)
-                    fadingin = true;
-            }
-            g.setColor(new Color((int) (1.5 * fade), 200, 250));
-        }
-        g.fillRect(x,y,getSizex(),getSizey());
+    public void draw(Graphics g, int deltatick) {
+        super.draw(g, deltatick);
         super.drawrange(g);
     }
     @Override

@@ -5,6 +5,7 @@ import de.buw.se4de.ID;
 import de.buw.se4de.GameObject;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public abstract class Enemy extends GameObject {
     boolean friendly=false;
@@ -156,6 +157,21 @@ public abstract class Enemy extends GameObject {
             handler.player.takedamage(attackdamage);
         }
     }
+
+    @Override
+    public void draw(Graphics g, int deltatick) {
+        spriteTimer += deltatick;
+        if (spriteTimer > spriteUpdateTime) {
+            spriteTimer = spriteTimer % spriteUpdateTime;
+            spriteFrame = (spriteFrame + 1) % spriteFrames;
+        }
+        Graphics2D g2d = (Graphics2D)g;
+        AffineTransform old = g2d.getTransform();
+        g2d.translate(getX(), getY());
+        g2d.drawImage(sprite, -getSizex()/2, -getSizey()/2, getSizex()/2, getSizey()/2, spriteFrame*spriteSize, 0, (spriteFrame+1)*spriteSize, spriteSize, null);
+        g2d.setTransform(old);
+    }
+
     void drawrange(Graphics g){
         g.setColor(Color.YELLOW);
         if(inrange)

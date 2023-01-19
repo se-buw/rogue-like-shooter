@@ -54,19 +54,19 @@ public class Handler {
             wave.newwave();
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int deltatick) {
         for (Spawnarea s: Spawn)
-            s.draw(g);
+            s.draw(g, deltatick);
         try {
             for (GameObject ob : gameObjects)
-                ob.draw(g);
+                ob.draw(g, deltatick);
         }catch (ConcurrentModificationException ignored){}
         try {
             for (Projectile p : projectiles)
-                p.draw(g);
+                p.draw(g, deltatick);
         }catch (ConcurrentModificationException ignored){}
-        player.draw(g);
-        gui.draw(g);
+        player.draw(g, deltatick);
+        gui.draw(g, deltatick);
     }
 
     public void addObject(GameObject obj){

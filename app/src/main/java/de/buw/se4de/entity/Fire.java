@@ -3,6 +3,10 @@ package de.buw.se4de.entity;
 import de.buw.se4de.gameflow.Handler;
 import de.buw.se4de.ID;
 
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 import java.awt.*;
 
 public class Fire extends Enemy {
@@ -13,15 +17,24 @@ public class Fire extends Enemy {
         movementspeed = 4;
         attackdamage = 1;
         health=2;
+        try {
+            sprite = ImageIO.read(new File("src/main/resources/sprites/fire.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        spriteFrames = 4;
+        spriteSize = 8;
+        spriteUpdateTime = 8;
     }
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int deltatick) {
         if(!friendly)
             g.setColor(Color.red);
         else
             g.setColor(Color.GREEN);
 
-        g.fillRect(x, y, 30, 30);
+        // g.fillRect(x, y, 30, 30);
+        super.draw(g, deltatick);
         drawrange(g);
     }
     @Override

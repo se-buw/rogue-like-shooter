@@ -2,6 +2,10 @@ package de.buw.se4de.entity;
 
 import de.buw.se4de.gameflow.Handler;
 
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 import java.awt.*;
 
 public class TankFire extends Enemy{
@@ -11,15 +15,23 @@ public class TankFire extends Enemy{
         super(x, y,10, 50, 50,70,handler);
         movementspeed = 2;
         attackdamage = 3;
+        try {
+            sprite = ImageIO.read(new File("src/main/resources/sprites/tank.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        spriteFrames = 4;
+        spriteSize = 8;
+        spriteUpdateTime = 10;
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int deltatick) {
         if(!friendly)
             g.setColor(new Color(255,100,0));
         else
             g.setColor(Color.GREEN);
-        g.fillRect(x,y,getSizex(),getSizey());
+        super.draw(g, deltatick);
         drawrange(g);
     }
 
