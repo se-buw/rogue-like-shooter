@@ -18,8 +18,10 @@ class FireballTest {
     @Test
     void testConstructor(){
         Fireball fireball = new Fireball(10, 10, 1,1,new Handler(), 10);
-        assertEquals(25, fireball.getX());
-        assertEquals(25, fireball.getY());
+        // Fireballs are offset by -15 (half of RangedFires size) on both axes to center their spawn point
+        // getX/Y returns the x/y coordinate with an offset of sizeX/Y / 2
+        assertEquals(10, fireball.getX());
+        assertEquals(10, fireball.getY());
         assertEquals(30, fireball.getSizex());
         assertEquals(30, fireball.getSizey());
         // a fireball should have 0 health, as it is not a living entity
